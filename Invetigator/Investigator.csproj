@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{541ABBD0-5CCF-43CA-91A7-F9D2CECFAA9A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FoodieGoals.Data</RootNamespace>
-    <AssemblyName>FoodieGoals.Data</AssemblyName>
+    <ProjectGuid>{67189439-4D9B-461E-9D43-8F61E251A79D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Invetigator</RootNamespace>
+    <AssemblyName>Invetigator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,17 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FoodieContext.cs" />
-    <Compile Include="Context.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\ListRestaurant.cs" />
-    <Compile Include="Models\PersonPhoto.cs" />
-    <Compile Include="Models\PersonRestaurant.cs" />
-    <Compile Include="Models\PersonRestaurantPhoto.cs" />
-    <Compile Include="Models\Photo.cs" />
-    <Compile Include="Models\Restaurant.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\PersonList.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Managers\" />
+    <ProjectReference Include="..\FoodieGoals.Data\FoodieGoals.Data.csproj">
+      <Project>{541abbd0-5ccf-43ca-91a7-f9d2cecfaa9a}</Project>
+      <Name>FoodieGoals.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
