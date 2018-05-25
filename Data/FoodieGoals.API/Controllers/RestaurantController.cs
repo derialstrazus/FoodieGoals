@@ -3,6 +3,8 @@ using FoodieGoals.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -24,7 +26,7 @@ namespace FoodieGoals.Controllers
 
         public IHttpActionResult Get(int id)
         {
-            Restaurant restaurant = db.Restaurants.Find(id);
+            Restaurant restaurant = db.Restaurants.Include(x => x.Address).FirstOrDefault(x => x.ID == id);
 
             return Ok(restaurant);
         }
@@ -38,6 +40,11 @@ namespace FoodieGoals.Controllers
             var savedID = inputRestaurant.ID;
 
             Restaurant savedRestaurant = db.Restaurants.FirstOrDefault(x => x.ID == savedID);
+
+            if (savedRestaurant == null)
+            {
+                return InternalServerError(new Exception("Restaurant was not created."));
+            }
 
             return Ok(savedRestaurant);
         }

@@ -15,7 +15,7 @@
     <RootNamespace>FoodieGoals</RootNamespace>
     <AssemblyName>FoodieGoals</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -134,7 +135,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51947/</IISUrl>
+          <IISUrl>http://api.foodiegoals.local</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://api.foodiegoals.local</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="FoodieContext.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Helpers\Result.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ListRestaurant.cs" />
     <Compile Include="Models\PersonPhoto.cs" />

@@ -62,12 +62,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FoodieGoals\FoodieGoals.API.csproj">
-      <Project>{11D42EAE-A3C9-4E5C-9716-63894A00B817}</Project>
-      <Name>FoodieGoals.API</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
