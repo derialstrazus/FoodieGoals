@@ -128,8 +128,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
-    <Content Include="Contact.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="library\fonts\glyphicons-halflings-regular.svg" />
@@ -140,10 +138,21 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="library\styles\page.css">
+      <DependentUpon>page.less</DependentUpon>
+    </Content>
+    <Content Include="library\styles\page.less" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\foodiegoals - Web Deploy.pubxml" />
-    <None Include="Scripts\External\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\External\jquery-1.10.2.js" />
-    <Content Include="Scripts\External\jquery-1.10.2.min.js" />
+    <None Include="library\scripts\external\jquery-1.10.2.intellisense.js" />
+    <Content Include="library\scripts\external\jquery-1.10.2.js" />
+    <Content Include="library\scripts\external\jquery-1.10.2.min.js" />
+    <Content Include="library\styles\page.min.css">
+      <DependentUpon>page.css</DependentUpon>
+    </Content>
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -154,21 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -205,11 +200,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="library\images\" />
-    <Folder Include="Styles\" />
+    <Folder Include="library\typings\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\External\jquery-1.10.2.min.map" />
+    <Content Include="library\scripts\external\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
