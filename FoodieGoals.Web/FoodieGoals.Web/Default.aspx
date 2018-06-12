@@ -2,6 +2,7 @@
     <title>Foodie Goals</title>
 
     <link href="library/styles/page.min.css" rel="stylesheet" />
+    
 </head>
 
 <body>
@@ -28,10 +29,12 @@
         </div>
     </div>
 
-
+    <script src="library/scripts/external/jquery-1.10.2.min.js"></script>
+    <script src="library/scripts/app.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("Ready!");
+            App.Initialize();
+        });
+    </script>
 </body>
-
-
-
-
-<script></script>
