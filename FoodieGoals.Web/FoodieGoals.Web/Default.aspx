@@ -9,6 +9,9 @@
 
     <div id="mainContainer">
         <h1>Foodie Goals</h1>
+        <div id="nameContainer">
+            <p>My name is Derek Lee</p>
+        </div>
 
         <div>
             <input id="inputMainSearch" type="text" placeholder="Find Restaurant..." />
@@ -19,9 +22,12 @@
 
         <div>
             <p>Lists</p>
-            <select>
-                <option>Goals</option>
-                <option>Visited</option>
+            <select id="selectList">
+                <option value="1">Goals</option>
+                <option value="2">Visited</option>
+                <option value="3">Reservation Req</option>
+                <option value="4">Desserts</option>
+                <option value="5">Drinks</option>
             </select>
         </div>
 
@@ -34,7 +40,24 @@
     <script>
         $(document).ready(function () {
             console.log("Ready!");
-            App.Initialize();
+            InitializeSystem();
+            InitializeApp();
         });
+
+        function InitializeSystem() {
+            try {
+                System.Initialize();
+            } catch (e) {
+                console.log(e);
+            }            
+        }
+
+        function InitializeApp() {
+            try {
+                App.Initialize();
+            } catch (e) {
+                console.log(e);
+            }            
+        }
     </script>
 </body>

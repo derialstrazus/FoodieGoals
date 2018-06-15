@@ -20,4 +20,14 @@ namespace FoodieGoals.Data.Models
         public DateTime CreatedOn { get; set; }
         public DateTime LastEdited { get; set; }
     }
+
+    public class PersonListDTO
+    {
+        public int ID { get; set; }        
+        public string Title { get; set; }
+        public string Comments { get; set; }        
+
+        public DateTime CreatedOn { get; set; }
+        public DateTime LastEdited { get; set; }
+    }
 }
