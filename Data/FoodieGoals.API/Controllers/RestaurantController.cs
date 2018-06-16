@@ -15,11 +15,15 @@ namespace FoodieGoals.Controllers
     {
 
         private FoodieContext db = new FoodieContext();
+        long personID = 1;
 
         //[Route("api/restaurant")]
         public IHttpActionResult Get()
         {
-            List<Restaurant> restaurants = db.Restaurants.Where(x => true).Take(100).ToList();
+            List<PersonRestaurant> restaurants = db.PersonRestaurants
+                .Where(x => x.Person.ID == personID)
+                .Take(100)
+                .ToList();
 
             return Ok(restaurants);
         }

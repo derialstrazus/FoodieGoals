@@ -1,7 +1,7 @@
 ﻿module System {
     "use strict";
 
-    export function Initailize(): void {
+    export function Initialize(): void {
         WebApi.InitializeWebApi();
     }
 
@@ -79,7 +79,7 @@
         function ExecuteAjax(params, successMethod, failureMethod) {
             $.ajax(params).then(
                 function (data, textStatus, xhr) {
-                    if (successMethod !== null && successMethod !== undefined)
+                    if (Helpers.IsNotNullNOREmpty(successMethod))
                         successMethod(data);
                     else
                         GenericAPISuccess(data);
@@ -87,9 +87,14 @@
                 function (xhr, status, error) {
                     if (xhr.status == 401) {
                         CleanUpAndRedirectToLogin();
-                    }                    
-                    var compiledError = `${xhr.status}Error - ${xhr.statusText}: ${xhr.responseJSON.ExceptionMessage}`
-                    if (failureMethod !== null && failureMethod !== undefined) {
+                    }
+                    var compiledError = `${xhr.status} Error - ${xhr.statusText}`;
+                    if (Helpers.IsNotNullNOREmpty(xhr.responseJSON)) {
+                        if (Helpers.IsNotNullNOREmpty(xhr.responseJSON.ExceptionMessage)) {
+                            compiledError += ": " + xhr.responseJSON.ExceptionMessage;
+                        }
+                    }
+                    if (Helpers.IsNotNullNOREmpty(failureMethod)) {
                         failureMethod(compiledError);
                     } else {
                         GenericAPIFail(compiledError);
@@ -102,11 +107,11 @@
             alert("401 error.");
         }
 
-        export function GenericAPISuccess(data) {
+        function GenericAPISuccess(data) {
             console.log(JSON.stringify(data, null, 2));
         }
 
-        export function GenericAPIFail(compiledError) {
+        function GenericAPIFail(compiledError) {
             alert(compiledError);
         }
     }

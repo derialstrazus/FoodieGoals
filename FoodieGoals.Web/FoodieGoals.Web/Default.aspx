@@ -10,7 +10,7 @@
     <div id="mainContainer">
         <h1>#FoodieGoals</h1>
         <div id="nameContainer">
-            <p>My name is Derek Lee</p>
+            <p>My name is Billy Bob</p>
         </div>
 
         <div>
@@ -36,6 +36,8 @@
     </div>
 
     <script src="library/scripts/external/jquery-1.10.2.min.js"></script>
+    <script src="library/scripts/helpers.js"></script>
+    <script src="library/scripts/system.js"></script>
     <script src="library/scripts/app.js"></script>
     <script>
         $(document).ready(function () {

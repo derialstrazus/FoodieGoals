@@ -1,10 +1,10 @@
 var System;
 (function (System) {
     "use strict";
-    function Initailize() {
+    function Initialize() {
         WebApi.InitializeWebApi();
     }
-    System.Initailize = Initailize;
+    System.Initialize = Initialize;
     var WebApi;
     (function (WebApi) {
         var apiOrigin = "http://foodiegoalsapi.azurewebsites.net/api/";
@@ -64,7 +64,7 @@ var System;
         WebApi.Delete = Delete;
         function ExecuteAjax(params, successMethod, failureMethod) {
             $.ajax(params).then(function (data, textStatus, xhr) {
-                if (successMethod !== null && successMethod !== undefined)
+                if (Helpers.IsNotNullNOREmpty(successMethod))
                     successMethod(data);
                 else
                     GenericAPISuccess(data);
@@ -72,8 +72,13 @@ var System;
                 if (xhr.status == 401) {
                     CleanUpAndRedirectToLogin();
                 }
-                var compiledError = xhr.status + "Error - " + xhr.statusText + ": " + xhr.responseJSON.ExceptionMessage;
-                if (failureMethod !== null && failureMethod !== undefined) {
+                var compiledError = xhr.status + " Error - " + xhr.statusText;
+                if (Helpers.IsNotNullNOREmpty(xhr.responseJSON)) {
+                    if (Helpers.IsNotNullNOREmpty(xhr.responseJSON.ExceptionMessage)) {
+                        compiledError += ": " + xhr.responseJSON.ExceptionMessage;
+                    }
+                }
+                if (Helpers.IsNotNullNOREmpty(failureMethod)) {
                     failureMethod(compiledError);
                 }
                 else {
@@ -87,11 +92,9 @@ var System;
         function GenericAPISuccess(data) {
             console.log(JSON.stringify(data, null, 2));
         }
-        WebApi.GenericAPISuccess = GenericAPISuccess;
         function GenericAPIFail(compiledError) {
             alert(compiledError);
         }
-        WebApi.GenericAPIFail = GenericAPIFail;
     })(WebApi = System.WebApi || (System.WebApi = {}));
 })(System || (System = {}));
 //# sourceMappingURL=system.js.map
