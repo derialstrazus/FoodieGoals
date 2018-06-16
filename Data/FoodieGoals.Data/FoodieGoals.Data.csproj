@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\DTOFactory.cs" />
+    <Compile Include="DTOs\PersonDTO.cs" />
+    <Compile Include="DTOs\PersonListDTO.cs" />
     <Compile Include="FoodieContext.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Helpers\Result.cs" />

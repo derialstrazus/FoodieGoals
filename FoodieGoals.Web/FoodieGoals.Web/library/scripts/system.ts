@@ -28,18 +28,23 @@
             //initialize header here
         }
 
-        export function Get(path: string, options?: Object | string, successMethod?: Function, failureMethod?: Function, context?: any) {
-
+        export function Get(
+            path: string,
+            options?: Object | string,
+            successMethod?: (data: Object, returnContext?: any) => any,
+            failureMethod?: (statusCode: number, errorString: string, returnContext?: any) => any,
+            returnContext?: any)
+        {
             var params = {
                 url: apiOrigin + path,
                 //headers: headers,
                 data: options,
                 method: "GET"
             };
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
 
-        export function Post(path: string, options?: Object | string, successMethod?: Function, failureMethod?: Function, context?: any) {
+        export function Post(path: string, options?: Object | string, successMethod?: (data: Object, returnContext?: any) => any, failureMethod?: (statusCode: number, errorString: string, returnContext?: any) => any, returnContext?: any) {
 
             var params = {
                 url: apiOrigin + path,
@@ -48,10 +53,10 @@
                 dataType: "json",
                 method: "POST"
             };
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
 
-        export function Put(path: string, options?: Object | string, successMethod?: Function, failureMethod?: Function, context?: any) {
+        export function Put(path: string, options?: Object | string, successMethod?: (data: Object, returnContext?: any) => any, failureMethod?: (statusCode: number, errorString: string, returnContext?: any) => any, returnContext?: any) {
 
             var params = {
                 url: apiOrigin + path,
@@ -60,10 +65,10 @@
                 dataType: "json",
                 method: "PUT"
             }
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
 
-        export function Delete(path: string, options?: Object | string, successMethod?: Function, failureMethod?: Function, context?: any) {
+        export function Delete(path: string, options?: Object | string, successMethod?: (data: Object, returnContext?: any) => any, failureMethod?: (statusCode: number, errorString: string, returnContext?: any) => any, returnContext?: any) {
 
             var params = {
                 url: apiOrigin + path,
@@ -72,15 +77,15 @@
                 dataType: "json",
                 method: "DELETE"
             }
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
 
         }
 
-        function ExecuteAjax(params, successMethod, failureMethod) {
+        function ExecuteAjax(params, successMethod?: (data: Object, returnContext?: any) => any, failureMethod?: (statusCode: number, errorString: string, returnContext?: any) => any, returnContext?) {
             $.ajax(params).then(
                 function (data, textStatus, xhr) {
                     if (Helpers.IsNotNullNOREmpty(successMethod))
-                        successMethod(data);
+                        successMethod(data, returnContext);
                     else
                         GenericAPISuccess(data);
                 },
@@ -95,7 +100,7 @@
                         }
                     }
                     if (Helpers.IsNotNullNOREmpty(failureMethod)) {
-                        failureMethod(compiledError);
+                        failureMethod(xhr.status, compiledError, returnContext);
                     } else {
                         GenericAPIFail(compiledError);
                     }

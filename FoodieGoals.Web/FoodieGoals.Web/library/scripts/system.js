@@ -19,17 +19,17 @@ var System;
             //initialize header here
         }
         WebApi.InitializeWebApi = InitializeWebApi;
-        function Get(path, options, successMethod, failureMethod, context) {
+        function Get(path, options, successMethod, failureMethod, returnContext) {
             var params = {
                 url: apiOrigin + path,
                 //headers: headers,
                 data: options,
                 method: "GET"
             };
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
         WebApi.Get = Get;
-        function Post(path, options, successMethod, failureMethod, context) {
+        function Post(path, options, successMethod, failureMethod, returnContext) {
             var params = {
                 url: apiOrigin + path,
                 //headers: headers,
@@ -37,10 +37,10 @@ var System;
                 dataType: "json",
                 method: "POST"
             };
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
         WebApi.Post = Post;
-        function Put(path, options, successMethod, failureMethod, context) {
+        function Put(path, options, successMethod, failureMethod, returnContext) {
             var params = {
                 url: apiOrigin + path,
                 //headers: headers,
@@ -48,10 +48,10 @@ var System;
                 dataType: "json",
                 method: "PUT"
             };
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
         WebApi.Put = Put;
-        function Delete(path, options, successMethod, failureMethod, context) {
+        function Delete(path, options, successMethod, failureMethod, returnContext) {
             var params = {
                 url: apiOrigin + path,
                 //headers: headers,
@@ -59,13 +59,13 @@ var System;
                 dataType: "json",
                 method: "DELETE"
             };
-            ExecuteAjax(params, successMethod, failureMethod);
+            ExecuteAjax(params, successMethod, failureMethod, returnContext);
         }
         WebApi.Delete = Delete;
-        function ExecuteAjax(params, successMethod, failureMethod) {
+        function ExecuteAjax(params, successMethod, failureMethod, returnContext) {
             $.ajax(params).then(function (data, textStatus, xhr) {
                 if (Helpers.IsNotNullNOREmpty(successMethod))
-                    successMethod(data);
+                    successMethod(data, returnContext);
                 else
                     GenericAPISuccess(data);
             }, function (xhr, status, error) {
@@ -79,7 +79,7 @@ var System;
                     }
                 }
                 if (Helpers.IsNotNullNOREmpty(failureMethod)) {
-                    failureMethod(compiledError);
+                    failureMethod(xhr.status, compiledError, returnContext);
                 }
                 else {
                     GenericAPIFail(compiledError);

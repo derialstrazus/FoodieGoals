@@ -8,37 +8,36 @@ using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using FoodieGoals.Data.DTOs;
 
 namespace FoodieGoals.Controllers
 {
     public class PersonController : ApiController
     {
         private FoodieContext db = new FoodieContext();
+        private DTOFactory _dtoFactory = new DTOFactory();
 
         public IHttpActionResult Get(int id)
         {
-            PersonDTO person = db.Persons
+            try
+            {
+                Person person = db.Persons
                 .Include(x => x.PersonLists)
-                .Select(x => new PersonDTO() {
-                    ID = x.ID,
-                    FirstName = x.FirstName,
-                    MiddleName = x.MiddleName,
-                    LastName = x.LastName,
-                    Email = x.Email,
-                    Address = x.Address,
-                    CreatedOn = x.CreatedOn,
-                    LastEdited = x.LastEdited,
-                    PersonLists = x.PersonLists.Select(y => new PersonListDTO() {
-                        ID = y.ID,
-                        Title = y.Title,
-                        Comments = y.Comments,
-                        CreatedOn = y.CreatedOn,
-                        LastEdited = y.LastEdited
-                    }).ToList()
-                })
                 .FirstOrDefault(x => x.ID == id);
 
-            return Ok(person);
+                if (person == null)                
+                    return NotFound();                
+
+                PersonDTO personDTO = _dtoFactory.Create(person);
+                return Ok(personDTO);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }            
         }
+
+
+
     }
 }
