@@ -8,7 +8,7 @@
 <body>
 
     <div id="mainContainer">
-        <h1>Foodie Goals</h1>
+        <h1>#FoodieGoals</h1>
         <div id="nameContainer">
             <p>My name is Derek Lee</p>
         </div>
