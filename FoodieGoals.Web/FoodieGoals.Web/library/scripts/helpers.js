@@ -58,5 +58,60 @@ var Helpers;
     Helpers.validateEmail = validateEmail;
     Helpers.csharpMinDate = "1900-01-01T00:00:00";
     Helpers.sqlMinDate = "0001-01-01T00:00:00";
+    var Cookie;
+    (function (Cookie) {
+        function Set(key, value, expireIn) {
+            expireIn = expireIn || 7;
+            var d = new Date();
+            d.setTime(d.getTime() + (expireIn * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = key + "=" + value + "; " + expires;
+        }
+        Cookie.Set = Set;
+        function Get(key) {
+            var name = key + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        Cookie.Get = Get;
+        function Remove(key) {
+            Set(key, '');
+            return Helpers.IsNullOrEmpty(Get(key));
+        }
+        Cookie.Remove = Remove;
+        function RemoveAll() {
+            // This function will attempt to remove a cookie from all paths.
+            var pathBits = location.pathname.split('/');
+            var pathCurrent = ' path=';
+            // do a simple pathless delete first.
+            document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;';
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < pathBits.length; i++) {
+                pathCurrent += ((pathCurrent.substr(-1) != '/') ? '/' : '') + pathBits[i];
+                for (var x = 0; x < cookies.length; x++) {
+                    var cookie = cookies[x];
+                    var eqPos = cookie.indexOf("=");
+                    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;' + pathCurrent + ';';
+                }
+            }
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                Set(name, "", -1);
+            }
+        }
+        Cookie.RemoveAll = RemoveAll;
+    })(Cookie = Helpers.Cookie || (Helpers.Cookie = {}));
 })(Helpers || (Helpers = {}));
 //# sourceMappingURL=helpers.js.map

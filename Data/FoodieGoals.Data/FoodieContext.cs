@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace FoodieGoals.Data
 {
+    /// <summary>
+    /// To update database schema, use code-first migrations.
+    /// 0. Enable-Migrations (Migrations folder does not exist)
+    /// 1. Add-Migration MigrationName
+    /// 2. Update-Database
+    /// </summary>
     public class FoodieContext: DbContext
     {
         public DbSet<Person> Persons { get; set; }
@@ -18,5 +24,6 @@ namespace FoodieGoals.Data
         public DbSet<PersonRestaurant> PersonRestaurants { get; set; }
         public DbSet<PersonRestaurantPhoto> PersonRestaurantPhotos { get; set; }
         public DbSet<PersonPhoto> PersonPhotos { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }

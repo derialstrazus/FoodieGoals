@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace FoodieGoals.Data.DTOs
 {
+    /// <summary>
+    /// Use this to transform entities into DTOs
+    /// </summary>
     public class DTOFactory
     {
 

@@ -7,6 +7,10 @@
 
 <body>
 
+    <div id="divUserSelector">
+        <select id="selectUser"></select>
+    </div>
+
     <div id="mainContainer">
         <h1>#FoodieGoals</h1>
         <div id="nameContainer">

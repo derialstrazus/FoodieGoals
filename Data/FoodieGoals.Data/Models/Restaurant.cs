@@ -11,6 +11,7 @@ namespace FoodieGoals.Data.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public Address Address { get; set; }
+        public string Summary { get; set; }
         //public Menu Menu { get; set; }
     }
 }

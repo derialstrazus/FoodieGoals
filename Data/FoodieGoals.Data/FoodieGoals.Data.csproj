@@ -51,9 +51,21 @@
     <Compile Include="DTOs\PersonDTO.cs" />
     <Compile Include="DTOs\PersonListDTO.cs" />
     <Compile Include="FoodieContext.cs" />
-    <Compile Include="Context.cs" />
     <Compile Include="Helpers\Result.cs" />
     <Compile Include="Managers\HealthCheckManager.cs" />
+    <Compile Include="Migrations\201806102347225_InitialCreate.cs" />
+    <Compile Include="Migrations\201806102347225_InitialCreate.Designer.cs">
+      <DependentUpon>201806102347225_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806162312358_AddSummaryToRestaurant.cs" />
+    <Compile Include="Migrations\201806162312358_AddSummaryToRestaurant.Designer.cs">
+      <DependentUpon>201806162312358_AddSummaryToRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806170502573_MadeAddressVirtual.cs" />
+    <Compile Include="Migrations\201806170502573_MadeAddressVirtual.Designer.cs">
+      <DependentUpon>201806170502573_MadeAddressVirtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ListRestaurant.cs" />
     <Compile Include="Models\PersonPhoto.cs" />
@@ -69,6 +81,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806102347225_InitialCreate.resx">
+      <DependentUpon>201806102347225_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806162312358_AddSummaryToRestaurant.resx">
+      <DependentUpon>201806162312358_AddSummaryToRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806170502573_MadeAddressVirtual.resx">
+      <DependentUpon>201806170502573_MadeAddressVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

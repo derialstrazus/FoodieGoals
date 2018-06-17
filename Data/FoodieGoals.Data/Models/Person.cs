@@ -13,7 +13,7 @@ namespace FoodieGoals.Data.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         public virtual ICollection<PersonList> PersonLists {get; set;}
         public virtual ICollection<PersonRestaurant> PersonRestaurants { get; set; }
