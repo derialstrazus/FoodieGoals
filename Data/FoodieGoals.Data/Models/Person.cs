@@ -18,6 +18,8 @@ namespace FoodieGoals.Data.Models
         public virtual ICollection<PersonList> PersonLists {get; set;}
         public virtual ICollection<PersonRestaurant> PersonRestaurants { get; set; }
         public virtual ICollection<PersonPhoto> ProfilePhotos { get; set; }
+        public virtual ICollection<PersonFriend> Friends { get; set; }
+        public virtual ICollection<PersonActivity> PersonActivities { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime LastEdited { get; set; }

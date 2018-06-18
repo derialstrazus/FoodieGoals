@@ -14,6 +14,7 @@ namespace FoodieGoals.Data.Models
 
         public bool HasVisited { get; set; }
         public int Priority { get; set; }
+        public int Sequence { get; set; }
 
         public int Rating { get; set; }
         public DateTime LastVisited { get; set; }
@@ -23,7 +24,8 @@ namespace FoodieGoals.Data.Models
         public string Notes { get; set; }   
 
         public virtual ICollection<PersonRestaurantPhoto> PersonRestaurantPhotos { get; set; }
-        public virtual ICollection<ListRestaurant> ListRestaurants { get; set; }
+        //public virtual ICollection<ListRestaurant> ListRestaurants { get; set; }
+        public virtual ICollection<PersonRestaurantHistory> PersonRestaurantHistory { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime LastEdited { get; set; }

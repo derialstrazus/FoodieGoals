@@ -13,5 +13,10 @@ namespace FoodieGoals.Data.Models
         public Address Address { get; set; }
         public string Summary { get; set; }
         //public Menu Menu { get; set; }
+
+        public virtual ICollection<RestaurantManager> Managers { get; set; }
+        public virtual ICollection<RestaurantTags> Tags { get; set; }
+        public virtual ICollection<RestaurantHours> Hours { get; set; }
+
     }
 }

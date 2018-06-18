@@ -65,16 +65,27 @@
     <Compile Include="Migrations\201806170502573_MadeAddressVirtual.Designer.cs">
       <DependentUpon>201806170502573_MadeAddressVirtual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806181220277_DatabaseSchemaV2.cs" />
+    <Compile Include="Migrations\201806181220277_DatabaseSchemaV2.Designer.cs">
+      <DependentUpon>201806181220277_DatabaseSchemaV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ListRestaurant.cs" />
+    <Compile Include="Models\PersonActivity.cs" />
+    <Compile Include="Models\PersonActivityComment.cs" />
+    <Compile Include="Models\PersonFriend.cs" />
     <Compile Include="Models\PersonPhoto.cs" />
     <Compile Include="Models\PersonRestaurant.cs" />
+    <Compile Include="Models\PersonRestaurantHistory.cs" />
     <Compile Include="Models\PersonRestaurantPhoto.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\PersonList.cs" />
+    <Compile Include="Models\RestaurantHours.cs" />
+    <Compile Include="Models\RestaurantManager.cs" />
+    <Compile Include="Models\RestaurantTags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806170502573_MadeAddressVirtual.resx">
       <DependentUpon>201806170502573_MadeAddressVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181220277_DatabaseSchemaV2.resx">
+      <DependentUpon>201806181220277_DatabaseSchemaV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
