@@ -42,5 +42,35 @@ namespace FoodieGoals.Data.DTOs
             };
         }
 
+        public PersonRestaurantDTO Create(PersonRestaurant personRestaurant)
+        {
+            return new PersonRestaurantDTO()
+            {
+                ID = personRestaurant.ID,
+                HasVisited = personRestaurant.HasVisited,
+                Priority = personRestaurant.Priority,
+                Sequence = personRestaurant.Sequence,
+                Rating = personRestaurant.Rating,
+                LastVisited = personRestaurant.LastVisited,
+                Review = personRestaurant.Review,
+                ReviewIsVisible = personRestaurant.ReviewIsVisible,
+                Notes = personRestaurant.Notes,
+                CreatedOn = personRestaurant.CreatedOn,
+                LastEdited = personRestaurant.LastEdited,
+                Restaurant = Create(personRestaurant.Restaurant)
+            };
+        }
+
+        public RestaurantDTO Create(Restaurant restaurant)
+        {
+            return new RestaurantDTO()
+            {
+                ID = restaurant.ID,
+                Name = restaurant.Name,
+                Address = restaurant.Address,
+                Summary = restaurant.Summary
+            };
+        }
+
     }
 }

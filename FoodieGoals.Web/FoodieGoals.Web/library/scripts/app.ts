@@ -31,6 +31,7 @@
         if (Helpers.IsNumber(cookiePersonID)) {
             personID = cookiePersonID;
             System.WebApi.Get(`person/${personID}`, null, GetPersonSuccess);
+            System.WebApi.Get(`person/${personID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess);
         }
     }
 
@@ -51,6 +52,7 @@
         tempUserSelector.change(function (e) {
             var selectedPersonID = $("#selectUser option:selected").val();
             System.WebApi.Get(`person/${selectedPersonID}`, null, GetPersonSuccess);
+            System.WebApi.Get(`person/${selectedPersonID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess);
         });
     }
 
@@ -64,8 +66,21 @@
 
         $("#nameContainer").empty().append(`<p>My name is ${personData.FirstName} ${personData.LastName}</p>`);
 
+        var personListContainer = $("#selectPersonList").empty();
+        var personListOptionGoals = $(`<option value="goals">Goals</option>`).appendTo(personListContainer);
+        var personListOptionVisited = $(`<option value="visited">Visited</option>`).appendTo(personListContainer);
         if (Helpers.IsNotNullNOREmpty(personData.PersonLists))
             RenderPersonList(personData.PersonLists);
+
+        personListContainer.change(function (e) {
+            var listID = $("#selectPersonList option:selected").val();
+            if (listID === "goals")
+                System.WebApi.Get(`person/${personID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess);
+            else if (listID === "visited")
+                System.WebApi.Get(`person/${personID}/personrestaurant/visited`, null, GetPersonRestaurantsSuccess);
+            else if (Helpers.IsNumber(listID))
+                System.WebApi.Get("personlist/" + listID, null, GetPersonRestaurantsSuccess);
+        });
     }
 
     function RenderPersonList(personLists) {
@@ -73,18 +88,34 @@
             return;
         }
 
-        var personListContainer = $("#selectPersonList").empty();
-        var personListOptionGoals = $(`<option value="goals">Goals</option>`).appendTo(personListContainer);
-        var personListOptionVisited = $(`<option value="visited">Visited</option>`).appendTo(personListContainer);
+        var personListContainer = $("#selectPersonList")
         for (var i = 0; i < personLists.length; i++) {
             var list = personLists[i];
             personListContainer.append(`<option value=${list.ID}>${list.Title}</option>`);
         }
     }
 
+    function GetPersonRestaurantsSuccess(personRestaurantArr) {
+        var container = $("#restaurantList").empty();
 
+        if (Helpers.IsNullOrEmpty(personRestaurantArr) || personRestaurantArr.length <= 0) {
+            container.append("<p>You haven't added any restaurants to your lists yet.</p>");
+            return;
+        }
 
+        for (var i = 0; i < personRestaurantArr.length; i++) {
+            var personRestaurant = personRestaurantArr[i];
+            RenderRestaurant(personRestaurant, container);
+        }
+    }
 
+    function RenderRestaurant(personRestaurant, container: JQuery) {
+        if (Helpers.IsNullOrEmpty(container))
+            var container = $("#restaurantList");
+
+        var divRestaurant = $(`<div class="restaurantcontainer"></div>`).appendTo(container);
+        divRestaurant.append(`<p>${personRestaurant.Restaurant.Name}</p>`);
+    }
 
 
 

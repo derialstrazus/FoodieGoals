@@ -50,6 +50,8 @@
     <Compile Include="DTOs\DTOFactory.cs" />
     <Compile Include="DTOs\PersonDTO.cs" />
     <Compile Include="DTOs\PersonListDTO.cs" />
+    <Compile Include="DTOs\PersonRestaurantDTO.cs" />
+    <Compile Include="DTOs\RestaurantDTO.cs" />
     <Compile Include="FoodieContext.cs" />
     <Compile Include="Helpers\Result.cs" />
     <Compile Include="Managers\HealthCheckManager.cs" />

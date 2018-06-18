@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using FoodieGoals.Data;
+using FoodieGoals.Data.DTOs;
 using FoodieGoals.Data.Models;
 
 namespace FoodieGoals.Controllers
@@ -16,11 +17,23 @@ namespace FoodieGoals.Controllers
     public class PersonRestaurantsController : ApiController
     {
         private FoodieContext db = new FoodieContext();
+        private DTOFactory _dtoFactory = new DTOFactory();
 
         // GET: api/PersonRestaurants
         public IQueryable<PersonRestaurant> GetPersonRestaurants()
         {
             return db.PersonRestaurants;
+        }
+
+        [HttpGet, Route("api/person/{personid}/personrestaurant/goals")]
+        public IHttpActionResult GetGoals(int personid)
+        {
+            List<PersonRestaurant> goals = db.PersonRestaurants
+                .Include(x => x.Restaurant)
+                .Where(x => x.Person.ID == personid && !x.HasVisited)
+                .ToList();
+            List<PersonRestaurantDTO> personRestaurantDTOs = goals.Select(x => _dtoFactory.Create(x)).ToList();
+            return Ok(personRestaurantDTOs);
         }
 
         // GET: api/PersonRestaurants/5

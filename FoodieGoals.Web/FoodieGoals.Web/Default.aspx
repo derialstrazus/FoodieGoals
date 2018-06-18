@@ -38,6 +38,11 @@
             </div>
         </div>
 
+        <hr />
+
+        <div id="restaurantList">
+
+        </div>
 
     </div>
 
