@@ -2,7 +2,7 @@
     <title>Foodie Goals</title>
 
     <link href="library/styles/page.min.css" rel="stylesheet" />
-    
+
 </head>
 
 <body>
@@ -13,9 +13,7 @@
 
     <div id="mainContainer">
         <h1>#FoodieGoals</h1>
-        <div id="nameContainer">
-            <p>My name is Billy Bob</p>
-        </div>
+        <div id="nameContainer"></div>
 
         <div>
             <input id="inputMainSearch" type="text" placeholder="Find Restaurant..." />
@@ -24,19 +22,23 @@
 
         <hr />
 
-        <div>
+        <div id="viewSearchResults" style="display: none;"></div>
+
+        <div id="viewList">
             <p>Lists</p>
-            <select id="selectList">
+            <select id="selectPersonList">
                 <option value="1">Goals</option>
                 <option value="2">Visited</option>
                 <option value="3">Reservation Req</option>
                 <option value="4">Desserts</option>
                 <option value="5">Drinks</option>
             </select>
+
+            <div id="divList">
+            </div>
         </div>
 
-        <div id="divList">
-        </div>
+
     </div>
 
     <script src="library/scripts/external/jquery-1.10.2.min.js"></script>
@@ -55,7 +57,7 @@
                 System.Initialize();
             } catch (e) {
                 console.log(e);
-            }            
+            }
         }
 
         function InitializeApp() {
@@ -63,7 +65,7 @@
                 App.Initialize();
             } catch (e) {
                 console.log(e);
-            }            
+            }
         }
     </script>
 </body>

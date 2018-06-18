@@ -16,6 +16,7 @@
         console.log("App initializing...");
         
         InitializePerson();
+        InitializeSearch();
 
         //$("#selectList").change(function (e) {
         //    var selected = $("#selectList").val();
@@ -63,10 +64,50 @@
 
         $("#nameContainer").empty().append(`<p>My name is ${personData.FirstName} ${personData.LastName}</p>`);
 
+        if (Helpers.IsNotNullNOREmpty(personData.PersonLists))
+            RenderPersonList(personData.PersonLists);
     }
 
-    function renderSelectedList() {
+    function RenderPersonList(personLists) {
+        if (Helpers.IsNullOrEmpty(personLists) || personLists.length <= 0) {
+            return;
+        }
 
+        var personListContainer = $("#selectPersonList").empty();
+        var personListOptionGoals = $(`<option value="goals">Goals</option>`).appendTo(personListContainer);
+        var personListOptionVisited = $(`<option value="visited">Visited</option>`).appendTo(personListContainer);
+        for (var i = 0; i < personLists.length; i++) {
+            var list = personLists[i];
+            personListContainer.append(`<option value=${list.ID}>${list.Title}</option>`);
+        }
+    }
+
+
+
+
+
+
+
+    function InitializeSearch() {
+
+        $("#btnMainSearch").click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var searchTerm = $("inputMainSearch").val();
+            System.WebApi.Get("restaurant/search?=" + Helpers.encodeURI(searchTerm), null, SearchSuccess);
+        });
+    }
+
+    function SearchSuccess(searchResults) {
+        var resultsContainer = $("#viewSearchResults").show();
+        if (Helpers.IsNullOrEmpty(searchResults) || searchResults.length <= 0) {
+            resultsContainer.append("<p>No results found.</p>");
+        }
+
+        for (var i = 0; i < searchResults.length; i++) {
+            var restaurant = searchResults[i];
+            resultsContainer.append(`<p>${restaurant.Name}</p>`);
+        }
     }
 
 }
