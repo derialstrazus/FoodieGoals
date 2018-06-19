@@ -29,7 +29,6 @@ namespace FoodieGoals.Data.DTOs
             };
         }
 
-
         public PersonListDTO Create(PersonList personList)
         {
             return new PersonListDTO()
@@ -38,7 +37,30 @@ namespace FoodieGoals.Data.DTOs
                 Title = personList.Title,
                 Comments = personList.Comments,
                 CreatedOn = personList.CreatedOn,
-                LastEdited = personList.LastEdited
+                LastEdited = personList.LastEdited,
+                ListRestaurants = personList.ListRestaurants.Select(r => Create(r)).ToList(),
+            };
+        }
+
+        public ListRestaurantDTO Create(ListRestaurant listRestaurant)
+        {
+            return new ListRestaurantDTO()
+            {
+                ID = listRestaurant.ID,
+                Comment = listRestaurant.Comment,
+                Sequence = listRestaurant.Sequence,
+                CreatedOn = listRestaurant.CreatedOn,
+                LastEdited = listRestaurant.LastEdited,
+                //PersonRestaurant = Create(listRestaurant.PersonRestaurant)
+                Name = listRestaurant?.PersonRestaurant?.Restaurant?.Name,
+                Address = listRestaurant?.PersonRestaurant?.Restaurant?.Address,
+                HasVisited = listRestaurant?.PersonRestaurant?.HasVisited != null ? listRestaurant.PersonRestaurant.HasVisited : false,
+                Priority = listRestaurant?.PersonRestaurant?.Priority != null ? listRestaurant.PersonRestaurant.Priority : 0,
+                Rating = listRestaurant?.PersonRestaurant?.Rating != null ? listRestaurant.PersonRestaurant.Rating : 0,
+                LastVisited = listRestaurant?.PersonRestaurant?.LastVisited,
+                Review = listRestaurant?.PersonRestaurant?.Review,
+                ReviewIsVisible = listRestaurant?.PersonRestaurant?.ReviewIsVisible != null ? listRestaurant.PersonRestaurant.ReviewIsVisible : false,
+                Notes = listRestaurant?.PersonRestaurant?.Notes
             };
         }
 

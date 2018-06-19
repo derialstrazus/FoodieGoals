@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodieGoals.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace FoodieGoals.Data.DTOs
         public int ID { get; set; }
         public string Title { get; set; }
         public string Comments { get; set; }
+        public IEnumerable<ListRestaurantDTO> ListRestaurants { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime LastEdited { get; set; }

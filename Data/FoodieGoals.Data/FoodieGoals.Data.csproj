@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\DTOFactory.cs" />
+    <Compile Include="DTOs\ListRestaurantDTO.cs" />
     <Compile Include="DTOs\PersonDTO.cs" />
     <Compile Include="DTOs\PersonListDTO.cs" />
     <Compile Include="DTOs\PersonRestaurantDTO.cs" />

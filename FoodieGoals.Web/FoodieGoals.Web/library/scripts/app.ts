@@ -99,7 +99,7 @@
         var container = $("#restaurantList").empty();
 
         if (Helpers.IsNullOrEmpty(personRestaurantArr) || personRestaurantArr.length <= 0) {
-            container.append("<p>You haven't added any restaurants to your lists yet.</p>");
+            container.append("<p>You haven't added any restaurants to this list yet.</p>");
             return;
         }
 
@@ -116,6 +116,8 @@
         var divRestaurant = $(`<div class="restaurantcontainer"></div>`).appendTo(container);
         divRestaurant.append(`<p>${personRestaurant.Restaurant.Name}</p>`);
     }
+
+
 
 
 

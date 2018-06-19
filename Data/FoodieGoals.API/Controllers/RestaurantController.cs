@@ -15,18 +15,6 @@ namespace FoodieGoals.Controllers
     {
 
         private FoodieContext db = new FoodieContext();
-        long personID = 1;
-
-        //[Route("api/restaurant")]
-        public IHttpActionResult Get()
-        {
-            List<PersonRestaurant> restaurants = db.PersonRestaurants
-                .Where(x => x.Person.ID == personID)
-                .Take(100)
-                .ToList();
-
-            return Ok(restaurants);
-        }
 
         public IHttpActionResult Get(int id)
         {
@@ -35,6 +23,7 @@ namespace FoodieGoals.Controllers
             return Ok(restaurant);
         }
 
+        /*
         //UNTESTED
         public IHttpActionResult Create(Restaurant inputRestaurant)
         {
@@ -63,5 +52,6 @@ namespace FoodieGoals.Controllers
 
             return Ok(existingRestaurant);
         }
+        */
     }
 }

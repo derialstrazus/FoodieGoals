@@ -79,7 +79,7 @@ var App;
     function GetPersonRestaurantsSuccess(personRestaurantArr) {
         var container = $("#restaurantList").empty();
         if (Helpers.IsNullOrEmpty(personRestaurantArr) || personRestaurantArr.length <= 0) {
-            container.append("<p>You haven't added any restaurants to your lists yet.</p>");
+            container.append("<p>You haven't added any restaurants to this list yet.</p>");
             return;
         }
         for (var i = 0; i < personRestaurantArr.length; i++) {
