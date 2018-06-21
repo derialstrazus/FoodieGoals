@@ -23,22 +23,36 @@ namespace FoodieGoals.Controllers
         public IHttpActionResult GetGoals(int personid)
         {
             List<PersonRestaurant> goals = db.PersonRestaurants
-                .Include(x => x.Restaurant)
+                .Include(x => x.Restaurant.Address)
                 .Where(x => x.Person.ID == personid && !x.HasVisited)
-                .ToList();
-            List<PersonRestaurantDTO> personRestaurantDTOs = goals.Select(x => _dtoFactory.Create(x)).ToList();
-            return Ok(personRestaurantDTOs);
+                .ToList();      
+            
+            PersonListDTO goalList = new PersonListDTO()
+            {
+                ID = 0,
+                Title = "Goals",
+                ListRestaurants = goals.Select(x => _dtoFactory.Create(x)),
+            };
+
+            return Ok(goalList);
         }
 
         [HttpGet, Route("api/person/{personid}/personrestaurant/visited")]
         public IHttpActionResult GetVisited(int personid)
         {
-            List<PersonRestaurant> goals = db.PersonRestaurants
-                .Include(x => x.Restaurant)
+            List<PersonRestaurant> visited = db.PersonRestaurants
+                .Include(x => x.Restaurant.Address)
                 .Where(x => x.Person.ID == personid && x.HasVisited)
                 .ToList();
-            List<PersonRestaurantDTO> personRestaurantDTOs = goals.Select(x => _dtoFactory.Create(x)).ToList();
-            return Ok(personRestaurantDTOs);
+
+            PersonListDTO visitedList = new PersonListDTO()
+            {
+                ID = 0,
+                Title = "Visited",
+                ListRestaurants = visited.Select(x => _dtoFactory.Create(x)),
+            };
+            
+            return Ok(visitedList);
         }
 
         // GET: api/PersonRestaurants/5

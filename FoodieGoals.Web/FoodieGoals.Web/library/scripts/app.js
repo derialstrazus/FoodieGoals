@@ -12,6 +12,7 @@ var App;
         console.log("App initializing...");
         InitializePerson();
         InitializeSearch();
+        InitializeAddRestaurant();
         //$("#selectList").change(function (e) {
         //    var selected = $("#selectList").val();
         //    console.log(selected);
@@ -97,12 +98,12 @@ var App;
         $("#btnMainSearch").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
-            var searchTerm = $("inputMainSearch").val();
-            System.WebApi.Get("restaurant/search?=" + Helpers.encodeURI(searchTerm), null, SearchSuccess);
+            var searchTerm = $("#inputMainSearch").val();
+            System.WebApi.Get("restaurant/search?searchterm=" + Helpers.encodeURI(searchTerm), null, SearchSuccess);
         });
     }
     function SearchSuccess(searchResults) {
-        var resultsContainer = $("#viewSearchResults").show();
+        var resultsContainer = $("#viewSearchResults").empty().show();
         if (Helpers.IsNullOrEmpty(searchResults) || searchResults.length <= 0) {
             resultsContainer.append("<p>No results found.</p>");
         }
@@ -110,6 +111,40 @@ var App;
             var restaurant = searchResults[i];
             resultsContainer.append("<p>" + restaurant.Name + "</p>");
         }
+    }
+    function InitializeAddRestaurant() {
+        ClearAddRestaurantForm();
+        $("#btnDisplayRestaurantForm").click(function (e) {
+            $("#formAddRestaurant").toggle();
+            $("#divAddRestaurantSuccess").hide('fast');
+        });
+        $("#btnSaveRestaurant").click(function (e) {
+            e.preventDefault();
+            var name = $("#inputAddRestaurantName").val();
+            var desc = $("#inputAddRestaurantDesc").val();
+            //var address = $("#inputAddRestaurantAddress").val();        //parse this using google API on back
+            var sendThis = {
+                Name: name,
+                Summary: desc,
+                Address: {
+                    StreetLine1: $("#inputAddRestaurantAddressStreet").val(),
+                    City: $("#inputAddRestaurantAddressCity").val(),
+                    State: $("#inputAddRestaurantAddressState").val(),
+                    Country: "USA",
+                    PostalCode: $("#inputAddRestaurantAddressZip").val()
+                }
+            };
+            System.WebApi.Post("restaurant", sendThis, AddRestaurantSuccess);
+        });
+    }
+    function ClearAddRestaurantForm() {
+        $("#formAddRestaurant").hide();
+        $("#formAddRestaurant input").val("");
+    }
+    function AddRestaurantSuccess(restaurant) {
+        alert("Success!");
+        ClearAddRestaurantForm();
+        $("#divAddRestaurantSuccess").show('slow');
     }
 })(App || (App = {}));
 //# sourceMappingURL=app.js.map

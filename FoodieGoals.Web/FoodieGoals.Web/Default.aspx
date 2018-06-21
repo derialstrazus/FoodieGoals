@@ -15,33 +15,66 @@
         <h1>#FoodieGoals</h1>
         <div id="nameContainer"></div>
 
-        <div>
-            <input id="inputMainSearch" type="text" placeholder="Find Restaurant..." />
-            <button id="btnMainSearch">Go</button>
-        </div>
-
-        <hr />
-
-        <div id="viewSearchResults" style="display: none;"></div>
-
-        <div id="viewList">
-            <p>Lists</p>
-            <select id="selectPersonList">
-                <option value="1">Goals</option>
-                <option value="2">Visited</option>
-                <option value="3">Reservation Req</option>
-                <option value="4">Desserts</option>
-                <option value="5">Drinks</option>
-            </select>
-
-            <div id="divList">
+        <div class="panel">
+            <div>
+                <input id="inputMainSearch" type="text" placeholder="Find Restaurant..." />
+                <button id="btnMainSearch">Go</button>
             </div>
+
+            <div id="viewSearchResults" style="display: none;"></div>
         </div>
 
-        <hr />
+        <div class="panel">
+            <div id="divAddRestaurant">
+                <button id="btnDisplayRestaurantForm">Add a restaurant</button>
+            </div>
+
+            <div id="divAddRestaurantSuccess" style="display: none;">
+                <p>Thanks for letting us know about this cool place!</p>
+                <p>We've also gone ahead and added it to your goals.</p>
+            </div>
+
+            <form id="formAddRestaurant" style="display: none;">
+                <div>
+                    <label>Name: </label>
+                    <input id="inputAddRestaurantName" type="text" />
+                </div>
+                <div>
+                    <label>Description: </label>
+                    <input id="inputAddRestaurantDesc" type="text" />
+                </div>                
+                <div>
+                    <label>Address: </label>
+                    <input id="inputAddRestaurantAddressStreet" type="text" />
+                </div>
+                <div>
+                    <label>City: </label>
+                    <input id="inputAddRestaurantAddressCity" type="text" />
+                </div>
+                <div>
+                    <label>State: </label>
+                    <input id="inputAddRestaurantAddressState" type="text" />
+                </div>
+                <div>
+                    <label>Zip Code: </label>
+                    <input id="inputAddRestaurantAddressZip" type="text" />
+                </div>
+                <button id="btnSaveRestaurant">Save</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <div id="viewList">
+                <p>Lists</p>
+                <select id="selectPersonList">
+                </select>
+
+                <div id="divList">
+                </div>
+            </div>
+        </div>        
 
         <div id="restaurantList">
-
         </div>
 
     </div>

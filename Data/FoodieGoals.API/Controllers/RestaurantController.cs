@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using FoodieGoals.Data.DTOs;
 
 namespace FoodieGoals.Controllers
 {
@@ -15,6 +16,7 @@ namespace FoodieGoals.Controllers
     {
 
         private FoodieContext db = new FoodieContext();
+        private DTOFactory _dtoFactory = new DTOFactory();
 
         public IHttpActionResult Get(int id)
         {
@@ -23,25 +25,37 @@ namespace FoodieGoals.Controllers
             return Ok(restaurant);
         }
 
-        /*
-        //UNTESTED
+        [HttpGet, Route("api/restaurant/search")]
+        public IHttpActionResult Search([FromUri]RestaurantSearchQuery query)
+        {
+            List<Restaurant> restaurants;
+
+            if (query == null)
+                restaurants = db.Restaurants.Include(x => x.Tags).Include(x => x.Address).Take(20).ToList();     //This should get all your nearby restaurants
+            else
+            {
+                restaurants = db.Restaurants
+                    .Include(x => x.Tags)
+                    .Include(x => x.Address)
+                    .Where(x => query.SearchTerm == null || x.Name.Contains(query.SearchTerm) || x.Tags.Any(t => t.Tag.Contains(query.SearchTerm)))
+                    .Take(20)
+                    .ToList();
+            }
+
+            //TODO: Need to identify which ones have already been added to your goals
+            
+            return Ok(restaurants);
+        }
+
         public IHttpActionResult Create(Restaurant inputRestaurant)
         {
             db.Restaurants.Add(inputRestaurant);
             db.SaveChanges();
 
-            var savedID = inputRestaurant.ID;
-
-            Restaurant savedRestaurant = db.Restaurants.FirstOrDefault(x => x.ID == savedID);
-
-            if (savedRestaurant == null)
-            {
-                return InternalServerError(new Exception("Restaurant was not created."));
-            }
-
-            return Ok(savedRestaurant);
+            return CreatedAtRoute("DefaultApi", new { id = inputRestaurant.ID }, inputRestaurant);
         }
 
+        /*
         //UNTESTED
         public IHttpActionResult Update(Restaurant inputRestaurant)
         {
@@ -53,5 +67,11 @@ namespace FoodieGoals.Controllers
             return Ok(existingRestaurant);
         }
         */
+    }
+
+    public class RestaurantSearchQuery
+    {
+        public string SearchTerm { get; set; }
+
     }
 }

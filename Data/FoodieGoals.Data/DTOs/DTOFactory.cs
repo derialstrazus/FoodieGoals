@@ -42,18 +42,21 @@ namespace FoodieGoals.Data.DTOs
             };
         }
 
+        //ListRestaurant.PersonRestaurant.Restaurant
+        //Both ListRestaurant and PersonRestaurant converts to ListRestaurantDTO
+        //This is because when you're getting a list of PersonRestaurant, its usually as Goals or Visited, which is treated as if they were lists themselves
         public ListRestaurantDTO Create(ListRestaurant listRestaurant)
-        {
+        {            
             return new ListRestaurantDTO()
             {
                 ID = listRestaurant.ID,
-                Comment = listRestaurant.Comment,
+                ListComment = listRestaurant.Comment,
                 Sequence = listRestaurant.Sequence,
                 CreatedOn = listRestaurant.CreatedOn,
                 LastEdited = listRestaurant.LastEdited,
-                //PersonRestaurant = Create(listRestaurant.PersonRestaurant)
                 Name = listRestaurant?.PersonRestaurant?.Restaurant?.Name,
                 Address = listRestaurant?.PersonRestaurant?.Restaurant?.Address,
+                Summary = listRestaurant?.PersonRestaurant?.Restaurant?.Summary,
                 HasVisited = listRestaurant?.PersonRestaurant?.HasVisited != null ? listRestaurant.PersonRestaurant.HasVisited : false,
                 Priority = listRestaurant?.PersonRestaurant?.Priority != null ? listRestaurant.PersonRestaurant.Priority : 0,
                 Rating = listRestaurant?.PersonRestaurant?.Rating != null ? listRestaurant.PersonRestaurant.Rating : 0,
@@ -64,22 +67,25 @@ namespace FoodieGoals.Data.DTOs
             };
         }
 
-        public PersonRestaurantDTO Create(PersonRestaurant personRestaurant)
+        public ListRestaurantDTO Create(PersonRestaurant personRestaurant)
         {
-            return new PersonRestaurantDTO()
+            return new ListRestaurantDTO()
             {
                 ID = personRestaurant.ID,
+                ListComment = null,
+                Sequence = personRestaurant.Sequence,
+                CreatedOn = personRestaurant.CreatedOn,
+                LastEdited = personRestaurant.LastEdited,
                 HasVisited = personRestaurant.HasVisited,
                 Priority = personRestaurant.Priority,
-                Sequence = personRestaurant.Sequence,
                 Rating = personRestaurant.Rating,
                 LastVisited = personRestaurant.LastVisited,
                 Review = personRestaurant.Review,
                 ReviewIsVisible = personRestaurant.ReviewIsVisible,
                 Notes = personRestaurant.Notes,
-                CreatedOn = personRestaurant.CreatedOn,
-                LastEdited = personRestaurant.LastEdited,
-                Restaurant = Create(personRestaurant.Restaurant)
+                Name = personRestaurant?.Restaurant?.Name,
+                Address = personRestaurant?.Restaurant?.Address,
+                Summary = personRestaurant?.Restaurant?.Summary,
             };
         }
 

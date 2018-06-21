@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FoodieGoals.Data.DTOs
 {
+    [Obsolete("Use ListRestaurantDTO instead")]
     public class PersonRestaurantDTO
     {
         public int ID { get; set; }

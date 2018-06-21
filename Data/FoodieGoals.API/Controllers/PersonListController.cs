@@ -45,8 +45,8 @@ namespace FoodieGoals.Controllers
             }
 
             //Page
-            var listRestaurants = db.ListRestaurants
-                .Include(x => x.PersonRestaurant)
+            var listRestaurants = db.ListRestaurants                
+                .Include(x => x.PersonRestaurant.Restaurant.Address)
                 .Where(x => x.PersonList.ID == id)
                 .OrderBy(x => x.Sequence).ThenBy(x => x.ID)
                 .Skip(pagesize * (page - 1))
@@ -61,7 +61,7 @@ namespace FoodieGoals.Controllers
             }
 
             //Convert
-            var returnThis = _dtoFactory.Create(personList);
+            PersonListDTO returnThis = _dtoFactory.Create(personList);
 
             return Ok(returnThis);
         }
