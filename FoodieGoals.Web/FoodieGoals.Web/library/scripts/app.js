@@ -83,8 +83,8 @@ var App;
             container.append("<p>You haven't added any restaurants to this list yet.</p>");
             return;
         }
-        for (var i = 0; i < personRestaurantArr.length; i++) {
-            var personRestaurant = personRestaurantArr[i];
+        for (var i = 0; i < personRestaurantArr.ListRestaurants.length; i++) {
+            var personRestaurant = personRestaurantArr.ListRestaurants[i];
             RenderRestaurant(personRestaurant, container);
         }
     }
@@ -92,7 +92,7 @@ var App;
         if (Helpers.IsNullOrEmpty(container))
             var container = $("#restaurantList");
         var divRestaurant = $("<div class=\"restaurantcontainer\"></div>").appendTo(container);
-        divRestaurant.append("<p>" + personRestaurant.Restaurant.Name + "</p>");
+        divRestaurant.append("<p>" + personRestaurant.Name + "</p>");
     }
     function InitializeSearch() {
         $("#btnMainSearch").click(function (e) {
