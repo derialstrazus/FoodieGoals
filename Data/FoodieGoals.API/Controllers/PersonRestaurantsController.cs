@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -59,13 +60,11 @@ namespace FoodieGoals.Controllers
         [ResponseType(typeof(PersonRestaurant))]
         public IHttpActionResult GetPersonRestaurant(int id)
         {
-            PersonRestaurant personRestaurant = db.PersonRestaurants.Find(id);
+            PersonRestaurant personRestaurant = db.PersonRestaurants.Include(x => x.Restaurant.Address).SingleOrDefault(x => x.ID == id);
             if (personRestaurant == null)
-            {
                 return NotFound();
-            }
 
-            return Ok(personRestaurant);
+            return Ok(_dtoFactory.Create(personRestaurant));
         }
 
         //// PUT: api/PersonRestaurants/5
@@ -103,20 +102,52 @@ namespace FoodieGoals.Controllers
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
 
-        //// POST: api/PersonRestaurants
-        //[ResponseType(typeof(PersonRestaurant))]
-        //public IHttpActionResult PostPersonRestaurant(PersonRestaurant personRestaurant)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        //INCOMPLETE
+        // POST: api/PersonRestaurants
+        [HttpPost, Route("api/person/{personid}/personrestaurant/{restaurantid}", Name = "PostPersonRestaurant")]
+        [ResponseType(typeof(PersonRestaurant))]
+        public IHttpActionResult PostPersonRestaurant(int personid, int restaurantid, PersonRestaurant personRestaurant)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    db.PersonRestaurants.Add(personRestaurant);
-        //    db.SaveChanges();
+            var person = db.Persons.Find(personid);
+            if (person == null)
+            {
+                return NotFound();
+            }
+            if (person.PersonRestaurants.Any(x => x.Restaurant.ID == restaurantid))
+            {
+                return BadRequest("You already have this restaurant recorded.");
+            }
 
-        //    return CreatedAtRoute("DefaultApi", new { id = personRestaurant.ID }, personRestaurant);
-        //}
+            var restaurant = db.Restaurants.Find(restaurantid);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            if (personRestaurant == null)
+            {
+                personRestaurant = new PersonRestaurant();
+            }
+
+            personRestaurant.CreatedOn = DateTime.Now;
+            personRestaurant.LastEdited = DateTime.Now;
+            personRestaurant.LastVisited = (DateTime)SqlDateTime.MinValue;
+
+            person.PersonRestaurants.Add(personRestaurant);            
+            personRestaurant.Restaurant = restaurant;
+
+            //db.PersonRestaurants.Add(personRestaurant);
+
+            db.SaveChanges();
+
+            return Ok(_dtoFactory.Create(personRestaurant));
+            //return CreatedAtRoute("PostPersonRestaurant", new { personid, restaurantid }, _dtoFactory.Create(personRestaurant));
+        }
 
         //// DELETE: api/PersonRestaurants/5
         //[ResponseType(typeof(PersonRestaurant))]

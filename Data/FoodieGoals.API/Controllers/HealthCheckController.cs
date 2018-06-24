@@ -1,4 +1,5 @@
 ﻿using FoodieGoals.Data.Managers;
+using FoodieGoals.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,14 @@ namespace FoodieGoals.Controllers
         {
             var returnThis = HealthCheckManager.AddThese(val1, val2);
             return Ok(returnThis);
+        }
+
+
+
+        [HttpPost, Route("api/healthcheck/restaurant")]
+        public IHttpActionResult TestDefault(Restaurant restaurant)
+        {
+            return Ok(restaurant);
         }
     }
 }

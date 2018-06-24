@@ -9,10 +9,11 @@ body {
 }
 
 #mainContainer {
-    margin: 40px;
+    margin: 40px auto;
     padding: 40px;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: rgba(0,0,0,0.3) 0px 0px 5px;
+    max-width: 1200px;
 
     .panel {
         margin: 10px 0px;
@@ -24,6 +25,13 @@ body {
                 display: inline-block;
                 width: 100px;
             }
+        }
+    }
+
+    #viewSearchResults {
+        .btnAddToList {
+            margin-right: 10px;
+            cursor: pointer;
         }
     }
 }

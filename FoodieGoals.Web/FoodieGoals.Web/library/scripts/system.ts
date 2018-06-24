@@ -98,6 +98,9 @@
                         if (Helpers.IsNotNullNOREmpty(xhr.responseJSON.ExceptionMessage)) {
                             compiledError += ": " + xhr.responseJSON.ExceptionMessage;
                         }
+                        if (Helpers.IsNotNullNOREmpty(xhr.responseJSON.Message)) {
+                            compiledError += ": " + xhr.responseJSON.Message;
+                        }
                     }
                     if (Helpers.IsNotNullNOREmpty(failureMethod)) {
                         failureMethod(xhr.status, compiledError, returnContext);

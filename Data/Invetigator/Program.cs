@@ -1,4 +1,5 @@
 ﻿using FoodieGoals.Data;
+using FoodieGoals.Data.DTOs;
 using FoodieGoals.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Invetigator
     {
         static void Main(string[] args)
         {
+            DTOFactory _dtoFactory = new DTOFactory();
             using (var db = new FoodieContext())
             {
                 //Console.WriteLine("Enter a name for a new Restaurant: ");
@@ -41,21 +43,22 @@ namespace Invetigator
                 //    Console.WriteLine(item.Name);
                 //}
 
-                var query = db.Persons.Find(1);
+                //var query = db.Persons.Find(1);
 
-                var test = new ListRestaurant()
-                {
-                    PersonRestaurant = new PersonRestaurant()
-                    {
-                        Rating = 2,
-                        Restaurant = null
-                    }
-                };
+                //var personRestaurant = db.PersonRestaurants.Find(1);
+                //var restaurant = db.Restaurants.Find(5);
 
-                String truth1 = test?.PersonRestaurant?.Restaurant?.Name;
-                int? truth2 = test?.PersonRestaurant?.Rating;
+                //personRestaurant.Restaurant = restaurant;
+                //db.SaveChanges();
+                //Console.WriteLine(_dtoFactory.Create(personRestaurant));
 
-                Console.WriteLine(query);
+
+                var person = db.Persons.Find(1);
+
+
+
+
+
 
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();

@@ -92,7 +92,11 @@ var App;
         if (Helpers.IsNullOrEmpty(container))
             var container = $("#restaurantList");
         var divRestaurant = $("<div class=\"restaurantcontainer\"></div>").appendTo(container);
-        divRestaurant.append("<p>" + personRestaurant.Name + "</p>");
+        var displayText = personRestaurant.Name;
+        if (Helpers.IsNotNullNOREmpty(personRestaurant.Address)) {
+            displayText += " @ " + personRestaurant.Address.AddressString;
+        }
+        divRestaurant.append("<p>" + displayText + "</p>");
     }
     function InitializeSearch() {
         $("#btnMainSearch").click(function (e) {
@@ -109,8 +113,24 @@ var App;
         }
         for (var i = 0; i < searchResults.length; i++) {
             var restaurant = searchResults[i];
-            resultsContainer.append("<p>" + restaurant.Name + "</p>");
+            RenderRestaurantToSearch(restaurant, resultsContainer);
+            //resultsContainer.append(`<p>${restaurant.Name}</p>`);
         }
+    }
+    function RenderRestaurantToSearch(restaurant, container) {
+        var restaurantContainer = $("<div class=\"restaurant searchresult\"></div>").appendTo(container);
+        var restaurantParagraph = $("<p></p>").appendTo(restaurantContainer);
+        var addToListButton = $("<span class=\"btnAddToList\">[+]</span>").appendTo(restaurantParagraph);
+        restaurantParagraph.append("" + restaurant.Name);
+        addToListButton.click(function (e) {
+            e.stopPropagation;
+            e.preventDefault();
+            System.WebApi.Post("person/" + personID + "/personrestaurant/" + restaurant.ID, null, AddRestaurantToGoalsSuccess, null, restaurant);
+        });
+    }
+    function AddRestaurantToGoalsSuccess(data, context) {
+        alert("Added " + context.Name + " to your goals");
+        System.WebApi.Get("person/" + personID + "/personrestaurant/goals", null, GetPersonRestaurantsSuccess);
     }
     function InitializeAddRestaurant() {
         ClearAddRestaurantForm();
