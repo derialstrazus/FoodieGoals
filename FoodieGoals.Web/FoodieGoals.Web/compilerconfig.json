@@ -2,5 +2,9 @@
   {
     "outputFile": "library/styles/page.css",
     "inputFile": "library/styles/page.less"
+  },
+  {
+    "outputFile": "library/styles/variables.css",
+    "inputFile": "library/styles/variables.less"
   }
 ]

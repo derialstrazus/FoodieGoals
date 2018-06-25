@@ -1,0 +1,218 @@
+﻿@fgorange: #FF9C1A ;
+
+
+
+
+@ahimared: #BE1E2D;
+@ahimaredhighlight: #9E061D;
+@ahimablue: #00548B;
+@ahimadarkgray: #414141;
+@ahimalight: #EEE;
+@ahimalightgray: #CCC;
+@ahimagray: #999;
+@darken: rgba(0,0,0,0.2);
+@darkenmore: rgba(0,0,0,0.5);
+@linkcolor: #0077CC;
+@activelinkcolor: #0099EE;
+@yourprice: yellow;
+
+@successcolor: #4dbf3b;
+@successshadow: 0 3px 9px 0 #c5e4c3 inset;
+@successbordercolor: #ccddd1;
+@successbgcolor: #e5f1e0;
+@successhighlight: #43d02d;
+
+@errorcolor: #C33;
+@errorshadow: 0 3px 9px 0 #CAA inset;
+@errorbordercolor: #DCC;
+@errorbgcolor: #FDD;
+@alertcolor: #d0ac35;
+@alertshadow: 0 3px 9px 0 #d4cdaa inset;
+@alertbordercolor: #ddd9cc;
+@alertbgcolor: #f8ead0;
+@panelbordercolor: #CCC;
+@panelshadow: 0 3px 9px 0 #CCC inset;
+@panelborder: 1px solid @panelbordercolor;
+@panelbg: rgba(255,255,255,0.8);
+@panelhighlight: rgba(235,235,235,0.8);
+@panelhover: rgba(245, 245, 245, 0.9);
+
+@pagewidth: 960px;
+@minimumwidth: 350px;
+@tabletsize: 700px;
+@normalsize: 960px;
+@largesize: 1280px;
+
+/*.button {
+   background: @ahimared;
+   border: 1px solid @ahimared;
+   color: white;
+   padding: 3px 25px;
+   .flexh;
+   .flexnw;
+   margin: 10px auto;
+
+   span {
+      font-size: 24px;
+      margin-right: 10px;
+   }
+
+   strong {
+      font-weight: normal;
+      font-size: 17px;
+   }
+}
+
+.linkbutton {
+   background: transparent;
+   border: 2px solid @ahimalightgray;
+   border-radius: 8px;
+   text-decoration: none;
+   color: @ahimalightgray;
+   text-align: center;
+
+   &:hover {
+      background: @ahimared;
+      border: 2px solid @ahimared;
+      color: white;
+   }
+
+   span {
+      width: 80px;
+      line-height: 40px;
+      background: none;
+   }
+}
+
+
+
+.nopm {
+   padding: 0;
+   margin: 0;
+}
+
+.fullparent {
+   display: block;
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   .nopm;
+   background: inherit;
+}
+
+.centerscreen {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+}
+
+.ellipsis {
+   -ms-text-overflow: ellipsis;
+   -o-text-overflow: ellipsis;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+}*/
+
+
+/*=========================================================================
+  Flex Classes
+=========================================================================*/
+.flex() {
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+}
+
+.flexv {
+   .flex();
+   -webkit-box-orient: vertical;
+   -moz-box-orient: vertical;
+   -webkit-box-direction: normal;
+   -moz-box-direction: normal;
+   -ms-flex-direction: column;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+}
+
+.flexh {
+   .flex();
+   -webkit-box-orient: horizontal;
+   -moz-box-orient: horizontal;
+   -webkit-box-direction: normal;
+   -moz-box-direction: normal;
+   -ms-flex-direction: row;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+}
+
+.flexnw {
+   -ms-flex-wrap: nowrap;
+   -webkit-flex-wrap: nowrap;
+   flex-wrap: nowrap;
+}
+
+.flexw {
+   -ms-flex-wrap: wrap;
+   -webkit-flex-wrap: wrap;
+   flex-wrap: wrap;
+}
+
+.flex0 {
+   flex-grow: 0;
+   flex-shrink: 0;
+   -ms-flex: 0;
+   -webkit-flex: 0;
+   flex: 0;
+}
+
+.flex1 {
+   flex-grow: 1;
+   flex-shrink: 1;
+   -ms-flex: 1;
+   -webkit-flex: 1;
+   flex: 1;
+}
+
+.flex2 {
+   flex-grow: 2;
+   flex-shrink: 2;
+   -ms-flex: 2;
+   -webkit-flex: 2;
+   flex: 2;
+}
+
+.flex3 {
+   flex-grow: 3;
+   flex-shrink: 3;
+   -ms-flex: 3;
+   -webkit-flex: 3;
+   flex: 3;
+}
+
+.flex4 {
+   flex-grow: 4;
+   flex-shrink: 4;
+   -ms-flex: 4;
+   -webkit-flex: 4;
+   flex: 4;
+}
+
+.noflex {
+   display: block;
+   -ms-flex-direction: unset;
+   -webkit-flex-direction: unset;
+   flex-direction: unset;
+   -ms-flex-wrap: unset;
+   -webkit-flex-wrap: unset;
+   flex-wrap: unset;
+   flex-grow: unset;
+   flex-shrink: unset;
+   -ms-flex: unset;
+   -webkit-flex: unset;
+   flex: unset;
+}

@@ -2,6 +2,9 @@
     <title>Foodie Goals</title>
 
     <link href="library/styles/page.min.css" rel="stylesheet" />
+    <link href="library/styles/variables.min.css" rel="stylesheet" />
+    <link href="library/styles/icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700" />
 
 </head>
 
@@ -16,7 +19,7 @@
         <div id="nameContainer"></div>
 
         <div class="panel">
-            <div>
+            <div id="divSearch">
                 <input id="inputMainSearch" type="text" placeholder="Find Restaurant..." />
                 <button id="btnMainSearch">Go</button>
             </div>

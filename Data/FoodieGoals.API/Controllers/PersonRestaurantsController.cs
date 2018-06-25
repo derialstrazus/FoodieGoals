@@ -18,7 +18,7 @@ namespace FoodieGoals.Controllers
     public class PersonRestaurantsController : ApiController
     {
         private FoodieContext db = new FoodieContext();
-        private DTOFactory _dtoFactory = new DTOFactory();        
+        private DTOFactory _dtoFactory = new DTOFactory();
 
         [HttpGet, Route("api/person/{personid}/personrestaurant/goals")]
         public IHttpActionResult GetGoals(int personid)
@@ -26,8 +26,8 @@ namespace FoodieGoals.Controllers
             List<PersonRestaurant> goals = db.PersonRestaurants
                 .Include(x => x.Restaurant.Address)
                 .Where(x => x.Person.ID == personid && !x.HasVisited)
-                .ToList();      
-            
+                .ToList();
+
             PersonListDTO goalList = new PersonListDTO()
             {
                 ID = 0,
@@ -52,7 +52,7 @@ namespace FoodieGoals.Controllers
                 Title = "Visited",
                 ListRestaurants = visited.Select(x => _dtoFactory.Create(x)),
             };
-            
+
             return Ok(visitedList);
         }
 
@@ -67,42 +67,40 @@ namespace FoodieGoals.Controllers
             return Ok(_dtoFactory.Create(personRestaurant));
         }
 
-        //// PUT: api/PersonRestaurants/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutPersonRestaurant(int id, PersonRestaurant personRestaurant)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // PUT: api/PersonRestaurants/5
+        // Note: For simplicity, you can pass ListRestaurantDTO in, but you have to make sure it contains a new Sequence property, and map the correct one to it.
+        // The call will look like this.
+        ///     var sendThis = personRestaurant;
+        ///     sendThis["Sequence"] = personRestaurant.PersonRestaurantSequence;
+        ///     sendThis["HasVisited"] = true;
+        ///     sendThis["LastVisited"] = new Date().toISOString();
+        ///     System.WebApi.Put("personrestaurants/" + personRestaurant.ID, sendThis, MarkRestaurantAsVisitedSuccess, null, personRestaurant);
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutPersonRestaurant(int id, PersonRestaurant personRestaurant)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    if (id != personRestaurant.ID)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != personRestaurant.ID)
+                return BadRequest();
 
-        //    db.Entry(personRestaurant).State = EntityState.Modified;
+            db.Entry(personRestaurant).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PersonRestaurantExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonRestaurantExists(id))
+                    return NotFound();
+                else
+                    throw;
+            }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-        //INCOMPLETE
         // POST: api/PersonRestaurants
         [HttpPost, Route("api/person/{personid}/personrestaurant/{restaurantid}", Name = "PostPersonRestaurant")]
         [ResponseType(typeof(PersonRestaurant))]
@@ -138,7 +136,7 @@ namespace FoodieGoals.Controllers
             personRestaurant.LastEdited = DateTime.Now;
             personRestaurant.LastVisited = (DateTime)SqlDateTime.MinValue;
 
-            person.PersonRestaurants.Add(personRestaurant);            
+            person.PersonRestaurants.Add(personRestaurant);
             personRestaurant.Restaurant = restaurant;
 
             //db.PersonRestaurants.Add(personRestaurant);
@@ -149,6 +147,7 @@ namespace FoodieGoals.Controllers
             //return CreatedAtRoute("PostPersonRestaurant", new { personid, restaurantid }, _dtoFactory.Create(personRestaurant));
         }
 
+        ////This has to be done recursively.  ie it will need to remove all references of that restaurant from all the ListRestaurants, and then finally from PersonRestaurant
         //// DELETE: api/PersonRestaurants/5
         //[ResponseType(typeof(PersonRestaurant))]
         //public IHttpActionResult DeletePersonRestaurant(int id)

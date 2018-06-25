@@ -140,6 +140,18 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="library\fonts\icomoon.html" />
+    <Content Include="library\fonts\icomoon.svg" />
+    <Content Include="library\images\temp0.jpg" />
+    <Content Include="library\images\temp1.jpg" />
+    <Content Include="library\images\temp2.jpg" />
+    <Content Include="library\images\temp3.jpg" />
+    <Content Include="library\images\temp4.jpg" />
+    <Content Include="library\images\temp5.jpg" />
+    <Content Include="library\images\temp6.jpg" />
+    <Content Include="library\images\temp7.jpg" />
+    <Content Include="library\images\temp8.jpg" />
+    <Content Include="library\images\temp9.jpg" />
     <Content Include="library\scripts\app.js">
       <DependentUpon>app.ts</DependentUpon>
     </Content>
@@ -149,6 +161,9 @@
     <Content Include="library\scripts\system.js">
       <DependentUpon>system.ts</DependentUpon>
     </Content>
+    <Content Include="library\styles\icons.css" />
+    <Content Include="library\styles\icons.min.css" />
+    <Content Include="library\styles\login.css" />
     <Content Include="library\styles\page.css">
       <DependentUpon>page.less</DependentUpon>
     </Content>
@@ -166,12 +181,22 @@
     <Content Include="library\scripts\helpers.js.map">
       <DependentUpon>helpers.ts</DependentUpon>
     </Content>
+    <Content Include="library\styles\variables.css">
+      <DependentUpon>variables.less</DependentUpon>
+    </Content>
+    <Content Include="library\styles\variables.less" />
+    <Content Include="library\fonts\icomoon.eot" />
+    <Content Include="library\fonts\icomoon.ttf" />
+    <Content Include="library\fonts\icomoon.woff" />
     <None Include="Properties\PublishProfiles\foodiegoals - Web Deploy.pubxml" />
     <None Include="library\scripts\external\jquery-1.10.2.intellisense.js" />
     <Content Include="library\scripts\external\jquery-1.10.2.js" />
     <Content Include="library\scripts\external\jquery-1.10.2.min.js" />
     <Content Include="library\styles\page.min.css">
       <DependentUpon>page.css</DependentUpon>
+    </Content>
+    <Content Include="library\styles\variables.min.css">
+      <DependentUpon>variables.css</DependentUpon>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -195,7 +220,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="library\images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
