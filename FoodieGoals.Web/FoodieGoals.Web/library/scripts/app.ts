@@ -76,7 +76,7 @@
         personID = personData.ID;
         Helpers.Cookie.Set("PersonID", personID.toString());
 
-        $("#nameContainer").empty().append(`<p>My name is ${personData.FirstName} ${personData.LastName}</p>`);        
+        $("#nameContainer").empty().append(`<p>My name is ${personData.FirstName} ${personData.LastName}</p>`);
 
         var personListContainer = $("#selectPersonList").empty();
         var personListOptionGoals = $(`<option value="goals">Goals</option>`).appendTo(personListContainer);
@@ -87,11 +87,11 @@
         personListContainer.change(function (e) {
             var listID = $("#selectPersonList option:selected").val();
             if (listID === "goals")
-                System.WebApi.Get(`person/${personID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess);
+                System.WebApi.Get(`person/${personID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess, null, false);
             else if (listID === "visited")
-                System.WebApi.Get(`person/${personID}/personrestaurant/visited`, null, GetPersonRestaurantsSuccess);
+                System.WebApi.Get(`person/${personID}/personrestaurant/visited`, null, GetPersonRestaurantsSuccess, null, false);
             else if (Helpers.IsNumber(listID))
-                System.WebApi.Get("personlist/" + listID, null, GetPersonRestaurantsSuccess);
+                System.WebApi.Get("personlist/" + listID, null, GetPersonRestaurantsSuccess, null, true);
         });
     }
 
@@ -109,7 +109,7 @@
 
 
 
-    function GetPersonRestaurantsSuccess(personRestaurantArr) {
+    function GetPersonRestaurantsSuccess(personRestaurantArr, isCustomList: Boolean = false) {
         var container = $("#restaurantList").empty();
 
         if (Helpers.IsNullOrEmpty(personRestaurantArr) || personRestaurantArr.length <= 0) {
@@ -119,11 +119,13 @@
 
         for (var i = 0; i < personRestaurantArr.ListRestaurants.length; i++) {
             var personRestaurant = personRestaurantArr.ListRestaurants[i];
-            RenderRestaurant(personRestaurant, container);
+            RenderRestaurant(personRestaurant, container, isCustomList);
         }
     }
 
-    function RenderRestaurant(personRestaurant, container: JQuery) {
+    function RenderRestaurant(personRestaurant, container: JQuery, isCustomList: Boolean = false) {
+        //isCustomList defaults false, which means by default it is either goals or visited.
+        //this sounds dangerous.  I'm not sure if I'm ok with that.  This might let the user make some dangerous calls.
         if (Helpers.IsNullOrEmpty(container))
             var container = $("#restaurantList");
 
@@ -134,49 +136,95 @@
         var picFileName = "temp" + personRestaurant.RestaurantID % 10 + ".jpg";
         divRestaurantPic.append(`<img src="/library/images/${picFileName}"></img>`);
 
-        var displayText = personRestaurant.Name;
+        var divRestaurantHeader = $(`<div class="restaurantheader"></div>`).appendTo(divRestaurantDetails);
+        var headerText = personRestaurant.Name;
         if (Helpers.IsNotNullNOREmpty(personRestaurant.Address)) {
-            displayText += ` @ ${personRestaurant.Address.AddressString}`;
+            headerText += ` @ ${personRestaurant.Address.AddressString}`;
         }
-        divRestaurantDetails.append(`<h3>${displayText}</h3>`);
+        divRestaurantHeader.append(`<h3>${headerText}</h3>`);
 
-        if (Helpers.IsNotNullNOREmpty(personRestaurant.ListComments))
-            divRestaurantDetails.append(`<p>${personRestaurant.ListComments}</p>`);
-        else if (Helpers.IsNotNullNOREmpty(personRestaurant.Notes))
-            divRestaurantDetails.append(`<p>${personRestaurant.Notes}</p>`);
-        else if (Helpers.IsNotNullNOREmpty(personRestaurant.Summary))
-            divRestaurantDetails.append(`<p>${personRestaurant.Summary}</p>`);
+        var divRestaurantContents = $(`<div class="restaurantcontents"></div>`).appendTo(divRestaurantDetails);
+        var contentText = "";
 
-        var divRestaurantButtons = $(`<div class="restaurantbuttons"></div>`).appendTo(divRestaurantDetails);
-        var editCommentsButton = $(`<span class="icon-file-text2" title="Edit Notes"></span>`).appendTo(divRestaurantButtons);
+        if (isCustomList)
+            contentText = personRestaurant.ListComments;
+        else
+            contentText = personRestaurant.Notes;
+
+        if (!contentText)           //if still empty, use global summary
+            contentText = personRestaurant.Summary;
+
+        divRestaurantContents.append(`<p>${contentText}</p>`);
+
+        var divRestaurantButtons = $(`<div class="restaurantbuttons"></div>`).appendTo(divRestaurant);
+        var editCommentsButton = $(`<button><span class="icon-file-text2" title="Edit Notes"></span></button>`).appendTo(divRestaurantButtons);
+        //var editCommentsButton = $(`<span class="icon-file-text2" title="Edit Notes"></span>`).appendTo(divRestaurantButtons);
         editCommentsButton.click(function (e) {
             e.stopPropagation();
             e.preventDefault();
             alert("Still working on Edit Comments");
+            //TODO: I need a UI.Modal
+            var sendThis = personRestaurant;
+
+            //if (isCustomList) {
+            //    if (!personRestaurant.IsListRestaurant) {
+            //        alert("DEV: Used wrong API for this object.  This object is a personrestaurant, so you need to use the personrestaurant API.");
+            //        return;
+            //    }
+            //    sendThis["Comment"] = ???
+            //    System.WebApi.Put("listrestaurants/" + personRestaurant.ID, sendThis, DeleteListRestaurantSuccess);
+            //}
+            //else {
+            //    if (personRestaurant.IsListRestaurant) {
+            //        alert("DEV: Used wrong API for this object.  This object is a listrestaurant, so you need to use the listrestaurant API.");
+            //        return;
+            //    }
+            //    sendThis["Notes"] = ???
+            //    System.WebApi.Put("personrestaurants/" + personRestaurant.ID, sendThis, DeletePersonRestaurantSuccess);
+            //}
+            //TODO: This needs to be different depending on whether its a list or if its on goals
         });
 
         if (!personRestaurant.HasVisited) {
-            var visitedButton = $(`<span class="icon-checkmark" title="Visited"></span>`).appendTo(divRestaurantButtons);
+            var visitedButton = $(`<button><span class="icon-checkmark" title="Visited"></span></button>`).appendTo(divRestaurantButtons);
             visitedButton.click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
 
                 var sendThis = personRestaurant;
-                sendThis["Sequence"] = personRestaurant.PersonRestaurantSequence;
+                if (sendThis.IsListRestaurant) {
+                    alert("DEV: Passed wrong object.  You need to pass personrestaurant not listrestaurant.");
+                    return;
+                }
                 sendThis["HasVisited"] = true;
                 sendThis["LastVisited"] = new Date().toISOString();
                 System.WebApi.Put("personrestaurants/" + personRestaurant.ID, sendThis, MarkRestaurantAsVisitedSuccess, null, personRestaurant);
             });
         }
-            
-        var deleteButton = $(`<span class="icon-cross" title="Delete"></span>`).appendTo(divRestaurantButtons);
+
+        //TODO: I need an intermediary between this action, to warn users that they are deleting something
+        var deleteButton = $(`<button><span class="icon-cross" title="Delete"></span></button>`).appendTo(divRestaurantButtons);
         deleteButton.click(function (e) {
             e.stopPropagation();
             e.preventDefault();
-            alert("Still working on Delete");
-            //System.WebApi.Delete("");
+            //alert("Still working on Delete");
+            if (isCustomList) {
+                if (!personRestaurant.IsListRestaurant) {
+                    alert("DEV: Used wrong API for this object.  This object is a personrestaurant, so you need to use the personrestaurant API.");
+                    return;
+                }
+                System.WebApi.Delete("listrestaurants/" + personRestaurant.ID, null, DeleteListRestaurantSuccess);
+            }
+            else {
+                if (personRestaurant.IsListRestaurant) {
+                    alert("DEV: Used wrong API for this object.  This object is a listrestaurant, so you need to use the listrestaurant API.");
+                    return;
+                }
+                //TODO:  Add warning that this will delete from all your existing lists.  Honestly this should be on a different button
+                System.WebApi.Delete("personrestaurants/" + personRestaurant.ID, null, DeletePersonRestaurantSuccess);
+            }
         });
-        
+
     }
 
     function MarkRestaurantAsVisitedSuccess(data, context) {
@@ -184,6 +232,17 @@
         var listID = $("#selectPersonList option:selected").val();
         if (listID === "goals")
             System.WebApi.Get(`person/${personID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess);
+    }
+
+    function DeleteListRestaurantSuccess(restaurant) {
+        alert("Successfully removed " + restaurant.Name + " from this list.");
+    }
+
+    function DeletePersonRestaurantSuccess(restaurant) {
+        alert("Successfully removed " + restaurant.Name + " from your collections.");
+        var listID = $("#selectPersonList option:selected").val();
+        if (listID === "goals")
+            System.WebApi.Get(`person/${personID}/personrestaurant/goals`, null, GetPersonRestaurantsSuccess);    
     }
 
 
@@ -271,7 +330,7 @@
     function AddRestaurantSuccess(restaurant) {
         alert("Success!");
         ClearAddRestaurantForm();
-        
+
         $("#divAddRestaurantSuccess").show('slow');
     }
 }

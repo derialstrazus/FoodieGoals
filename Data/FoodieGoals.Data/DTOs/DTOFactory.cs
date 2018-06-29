@@ -51,7 +51,7 @@ namespace FoodieGoals.Data.DTOs
             {
                 ID = listRestaurant.ID,
                 ListComment = listRestaurant.Comment,
-                ListSequence = listRestaurant.Sequence,
+                Sequence = listRestaurant.Sequence,
                 CreatedOn = listRestaurant.CreatedOn,
                 LastEdited = listRestaurant.LastEdited,
                 RestaurantID = listRestaurant?.PersonRestaurant?.Restaurant?.ID != null ? listRestaurant.PersonRestaurant.Restaurant.ID: 0,
@@ -60,12 +60,12 @@ namespace FoodieGoals.Data.DTOs
                 Summary = listRestaurant?.PersonRestaurant?.Restaurant?.Summary,
                 HasVisited = listRestaurant?.PersonRestaurant?.HasVisited != null ? listRestaurant.PersonRestaurant.HasVisited : false,
                 Priority = listRestaurant?.PersonRestaurant?.Priority != null ? listRestaurant.PersonRestaurant.Priority : 0,
-                PersonRestaurantSequence = 0,
                 Rating = listRestaurant?.PersonRestaurant?.Rating != null ? listRestaurant.PersonRestaurant.Rating : 0,
                 LastVisited = listRestaurant?.PersonRestaurant?.LastVisited,
                 Review = listRestaurant?.PersonRestaurant?.Review,
                 ReviewIsVisible = listRestaurant?.PersonRestaurant?.ReviewIsVisible != null ? listRestaurant.PersonRestaurant.ReviewIsVisible : false,
-                Notes = listRestaurant?.PersonRestaurant?.Notes
+                Notes = listRestaurant?.PersonRestaurant?.Notes,
+                IsListRestaurant = true
             };
         }
 
@@ -75,12 +75,11 @@ namespace FoodieGoals.Data.DTOs
             {
                 ID = personRestaurant.ID,
                 ListComment = null,
-                ListSequence = 0,
                 CreatedOn = personRestaurant.CreatedOn,
                 LastEdited = personRestaurant.LastEdited,
                 HasVisited = personRestaurant.HasVisited,
                 Priority = personRestaurant.Priority,
-                PersonRestaurantSequence = personRestaurant.Sequence,
+                Sequence = personRestaurant.Sequence,
                 Rating = personRestaurant.Rating,
                 LastVisited = personRestaurant.LastVisited,
                 Review = personRestaurant.Review,
@@ -90,6 +89,7 @@ namespace FoodieGoals.Data.DTOs
                 Name = personRestaurant?.Restaurant?.Name,
                 Address = personRestaurant?.Restaurant?.Address,
                 Summary = personRestaurant?.Restaurant?.Summary,
+                IsListRestaurant = false
             };
         }
 

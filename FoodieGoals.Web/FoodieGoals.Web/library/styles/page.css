@@ -14,6 +14,7 @@ button {
   border-radius: 5px;
   border: 1px solid gray;
   background-color: #FF9C1A;
+  cursor: pointer;
 }
 #mainContainer {
   margin: 40px auto;
@@ -60,37 +61,37 @@ button {
   -ms-flex-wrap: nowrap;
   -webkit-flex-wrap: nowrap;
   flex-wrap: nowrap;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 20px;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 20px;
   background-color: white;
 }
 #mainContainer .restaurantcontainer .restaurantpic img {
   width: 100px;
   height: 100px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 #mainContainer .restaurantcontainer .restaurantdetails {
   margin-left: 20px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-#mainContainer .restaurantcontainer .restaurantdetails h3,
-#mainContainer .restaurantcontainer .restaurantdetails h4 {
-  margin-top: 5px;
+#mainContainer .restaurantcontainer .restaurantdetails .restaurantheader {
   margin-bottom: 10px;
 }
-#mainContainer .restaurantcontainer .restaurantdetails p {
-  margin-bottom: 20px;
-}
-#mainContainer .restaurantcontainer .restaurantdetails .restaurantbuttons {
-  margin-top: 10px;
+#mainContainer .restaurantcontainer .restaurantdetails .restaurantcontents {
   margin-bottom: 10px;
 }
-#mainContainer .restaurantcontainer .restaurantdetails .restaurantbuttons span {
+#mainContainer .restaurantcontainer .restaurantbuttons {
+  margin: auto 0px auto auto;
+}
+#mainContainer .restaurantcontainer .restaurantbuttons button {
+  width: 50px;
+  height: 50px;
   margin-right: 10px;
-  cursor: pointer;
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 5px;
-  background: #FF9C1A;
+  border-radius: 50%;
+  font-size: 25px;
 }

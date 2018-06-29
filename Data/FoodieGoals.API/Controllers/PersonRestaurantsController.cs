@@ -68,13 +68,8 @@ namespace FoodieGoals.Controllers
         }
 
         // PUT: api/PersonRestaurants/5
-        // Note: For simplicity, you can pass ListRestaurantDTO in, but you have to make sure it contains a new Sequence property, and map the correct one to it.
-        // The call will look like this.
-        ///     var sendThis = personRestaurant;
-        ///     sendThis["Sequence"] = personRestaurant.PersonRestaurantSequence;
-        ///     sendThis["HasVisited"] = true;
-        ///     sendThis["LastVisited"] = new Date().toISOString();
-        ///     System.WebApi.Put("personrestaurants/" + personRestaurant.ID, sendThis, MarkRestaurantAsVisitedSuccess, null, personRestaurant);
+        // Note: For simplicity, you can pass ListRestaurantDTO in, but you have to make sure to check that the object is of type PersonRestaurant.
+        // IE. the IsListRestaurant property needs to be false        
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPersonRestaurant(int id, PersonRestaurant personRestaurant)
         {
@@ -147,22 +142,29 @@ namespace FoodieGoals.Controllers
             //return CreatedAtRoute("PostPersonRestaurant", new { personid, restaurantid }, _dtoFactory.Create(personRestaurant));
         }
 
-        ////This has to be done recursively.  ie it will need to remove all references of that restaurant from all the ListRestaurants, and then finally from PersonRestaurant
-        //// DELETE: api/PersonRestaurants/5
-        //[ResponseType(typeof(PersonRestaurant))]
-        //public IHttpActionResult DeletePersonRestaurant(int id)
-        //{
-        //    PersonRestaurant personRestaurant = db.PersonRestaurants.Find(id);
-        //    if (personRestaurant == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //UNTESTED
+        //This has to be done recursively.  ie it will need to remove all references of that restaurant from all the ListRestaurants, and then finally from PersonRestaurant
+        // DELETE: api/PersonRestaurants/5
+        [ResponseType(typeof(PersonRestaurant))]
+        public IHttpActionResult DeletePersonRestaurant(int id)
+        {
+            PersonRestaurant personRestaurant = db.PersonRestaurants.Find(id);
+            if (personRestaurant == null)
+            {
+                return NotFound();
+            }
 
-        //    db.PersonRestaurants.Remove(personRestaurant);
-        //    db.SaveChanges();
+            var listRestaurants = db.ListRestaurants.Where(x => x.PersonRestaurant.Restaurant.ID == id);
+            foreach (var listRestaurant in listRestaurants)
+            {
+                db.ListRestaurants.Remove(listRestaurant);
+            }
 
-        //    return Ok(personRestaurant);
-        //}
+            db.PersonRestaurants.Remove(personRestaurant);
+            db.SaveChanges();
+
+            return Ok(personRestaurant);
+        }
 
         protected override void Dispose(bool disposing)
         {
