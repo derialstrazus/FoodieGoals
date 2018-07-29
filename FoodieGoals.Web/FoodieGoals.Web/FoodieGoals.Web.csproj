@@ -198,6 +198,9 @@
     <Content Include="library\styles\variables.min.css">
       <DependentUpon>variables.css</DependentUpon>
     </Content>
+    <Content Include="Login.aspx" />
+    <Content Include="privacypolicy.html" />
+    <Content Include="testlogin.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -215,6 +218,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -235,6 +245,8 @@
     <TypeScriptCompile Include="library\scripts\app.ts" />
     <TypeScriptCompile Include="library\scripts\helpers.ts" />
     <TypeScriptCompile Include="library\scripts\system.ts" />
+    <TypeScriptCompile Include="library\typings\gapi.auth2.d.ts" />
+    <TypeScriptCompile Include="library\typings\gapi.d.ts" />
     <TypeScriptCompile Include="library\typings\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>

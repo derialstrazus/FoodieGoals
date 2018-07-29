@@ -10,8 +10,12 @@
 
 <body>
 
-    <div id="divUserSelector">
+    <%--<div id="divUserSelector">
         <select id="selectUser"></select>
+    </div>--%>
+
+    <div id="loginPanel">
+
     </div>
 
     <div id="mainContainer">

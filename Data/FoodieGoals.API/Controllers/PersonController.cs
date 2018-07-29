@@ -10,14 +10,17 @@ using System.Net.Http;
 using System.Web.Http;
 using FoodieGoals.Data.DTOs;
 using System.Data.Entity.Infrastructure;
+using Microsoft.AspNet.Identity;
 
 namespace FoodieGoals.Controllers
 {
-    public class PersonController : ApiController
+    public class PersonController : BasicController
     {
-        private FoodieContext db = new FoodieContext();
-        private DTOFactory _dtoFactory = new DTOFactory();
-
+        //private FoodieContext db = new FoodieContext();
+        //private DTOFactory _dtoFactory = new DTOFactory();
+       
+        [Route("api/person/{id}")]
+        [AllowAnonymous]
         public IHttpActionResult Get(int id)
         {
             try
@@ -26,8 +29,36 @@ namespace FoodieGoals.Controllers
                 //.Include(x => x.PersonLists)
                 //.Include(x => x.Address)
                 //.FirstOrDefault(x => x.ID == id);
-
+                
                 Person person = db.Persons.Find(id);
+
+                if (person == null)
+                    return NotFound();
+
+                PersonDTO personDTO = _dtoFactory.Create(person);
+
+                var isLoggedIn = IsLoggedIn;
+                if (!isLoggedIn)        //Hide information if someone is not logged in
+                {
+                    personDTO.Email = null;
+                    personDTO.Address = null;
+                }
+
+                return Ok(personDTO);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [Authorize]
+        [Route("api/person")]
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                Person person = CurrentPerson;
 
                 if (person == null)
                     return NotFound();
@@ -46,8 +77,11 @@ namespace FoodieGoals.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("api/person/users")]
+        [Obsolete]
         public IHttpActionResult GetPeople()
         {
+            return BadRequest();
+
             try
             {
                 List<Person> people = db.Persons.Take(10).OrderBy(x => x.ID).ToList();

@@ -53,8 +53,15 @@ namespace Invetigator
                 //Console.WriteLine(_dtoFactory.Create(personRestaurant));
 
 
-                var person = db.Persons.Find(1);
+                //var person = db.Persons.Find(1);
 
+                var newPerson = new Person()
+                {
+                    Email = "test@test.com",
+                    IdentityID = new Guid().ToString()
+                };
+
+                Console.WriteLine(newPerson);
 
 
 

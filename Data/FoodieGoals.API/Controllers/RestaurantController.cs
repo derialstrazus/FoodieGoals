@@ -11,7 +11,7 @@ using System.Web.Http;
 using FoodieGoals.Data.DTOs;
 
 namespace FoodieGoals.Controllers
-{
+{    
     public class RestaurantController : ApiController
     {
 
@@ -21,8 +21,7 @@ namespace FoodieGoals.Controllers
         public IHttpActionResult Get(int id)
         {
             Restaurant restaurant = db.Restaurants.Include(x => x.Address).FirstOrDefault(x => x.ID == id);
-
-            return Ok(restaurant);
+            return Ok(_dtoFactory.Create(restaurant));
         }
 
         [HttpGet, Route("api/restaurant/search")]

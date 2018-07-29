@@ -23,5 +23,14 @@ namespace FoodieGoals.Data.Models
 
         public DateTime CreatedOn { get; set; }
         public DateTime LastEdited { get; set; }
+
+        public string IdentityID { get; set; }
+
+
+        public Person()
+        {
+            CreatedOn = DateTime.Now;
+            LastEdited = DateTime.Now;
+        }
     }
 }

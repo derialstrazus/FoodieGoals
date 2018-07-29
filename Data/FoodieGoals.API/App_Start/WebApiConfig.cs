@@ -11,10 +11,10 @@ namespace FoodieGoals.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            var cors = new EnableCorsAttribute("http://web.foodiegoals.local", "*", "*");
-            cors.Origins.Add("http://foodiegoals.azurewebsites.net");
+            //var cors = new EnableCorsAttribute("http://web.foodiegoals.local", "*", "*");
+            //cors.Origins.Add("http://foodiegoals.azurewebsites.net");
 
-            config.EnableCors(cors);
+            //config.EnableCors(cors);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -24,6 +24,9 @@ namespace FoodieGoals.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //Filters
+            config.Filters.Add(new AuthorizeAttribute());
         }
     }
 }

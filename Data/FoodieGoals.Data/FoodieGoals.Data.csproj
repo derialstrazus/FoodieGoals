@@ -72,6 +72,14 @@
     <Compile Include="Migrations\201806181220277_DatabaseSchemaV2.Designer.cs">
       <DependentUpon>201806181220277_DatabaseSchemaV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807282216077_AddIdentityGUIDToPerson.cs" />
+    <Compile Include="Migrations\201807282216077_AddIdentityGUIDToPerson.Designer.cs">
+      <DependentUpon>201807282216077_AddIdentityGUIDToPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807282217592_AddIdentityStringToPerson.cs" />
+    <Compile Include="Migrations\201807282217592_AddIdentityStringToPerson.Designer.cs">
+      <DependentUpon>201807282217592_AddIdentityStringToPerson.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ListRestaurant.cs" />
@@ -107,6 +115,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806181220277_DatabaseSchemaV2.resx">
       <DependentUpon>201806181220277_DatabaseSchemaV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807282216077_AddIdentityGUIDToPerson.resx">
+      <DependentUpon>201807282216077_AddIdentityGUIDToPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807282217592_AddIdentityStringToPerson.resx">
+      <DependentUpon>201807282217592_AddIdentityStringToPerson.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
