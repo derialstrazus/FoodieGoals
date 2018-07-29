@@ -29,12 +29,12 @@ namespace FoodieGoals.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();            
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
-            {
+            {                
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
@@ -48,8 +48,6 @@ namespace FoodieGoals.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
-
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

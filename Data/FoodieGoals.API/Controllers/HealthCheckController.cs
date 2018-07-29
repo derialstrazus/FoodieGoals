@@ -9,7 +9,8 @@ using System.Web.Http;
 
 namespace FoodieGoals.Controllers
 {
-    public class HealthCheckController : ApiController
+    [AllowAnonymous]
+    public class HealthCheckController : BasicController
     {
 
         //http://api.foodiegoals.local/api/healthcheck
