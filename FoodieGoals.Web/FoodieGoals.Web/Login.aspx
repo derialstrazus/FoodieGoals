@@ -8,48 +8,49 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title></title>
 
+    <link href="library/styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="library/styles/pagelogin.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700" />
 
 </head>
 
-<body>
-    <h1>Login Page!</h1>
+<body class="text-center">
 
-    <div id="divLogin">
-        <form>
-            <div>
-                <input type="text" id="loginEmail" placeholder="Email" />
-            </div>
-            <div>
-                <input type="password" id="loginPassword" placeholder="Password" />
-            </div>
-            <button id="btnSignIn">Sign In</button>
-        </form>
-    </div>
+    <div class="loginmaincontainer">
 
-    <hr />
+        <h1 class="mb-3">Please Sign In</h1>
 
-    <div id="divSignup">
-        <form>
-            <div>
-                <input type="text" id="signupEmail" placeholder="Email" />
-            </div>
-            <div>
-                <input type="password" id="signupPassword" placeholder="Password" />
-            </div>
-            <div>
-                <input type="password" id="signupPasswordAgain" placeholder="Confirm Password" />
-            </div>
-            <button id="btnSignUp">Sign Up</button>
-        </form>
-    </div>
+        <div id="divLogin">
+            <form>
+                <input class="form-control" type="email" id="loginEmail" placeholder="Email" />
+                <input class="form-control" type="password" id="loginPassword" placeholder="Password" />
+                <button class="btn btn-large" id="btnSignIn">Sign In</button>
+            </form>
+        </div>
 
-    <hr />
+        <hr />
 
-    <div>
-        <button id="btnTest">Test</button>
+        <h3>- or -</h3>
+
+        <hr />
+
+        <h1 class="mb-3">Sign Up</h1>        
+
+        <div id="divSignup">
+            <form>
+                <input class="form-control" type="email" id="signupEmail" placeholder="Email" />
+                <input class="form-control" type="password" id="signupPassword" placeholder="Password" />
+                <input class="form-control" type="password" id="signupPasswordAgain" placeholder="Confirm Password" />
+                <button class="btn" id="btnSignUp">Sign Up</button>
+            </form>
+        </div>
+
     </div>
 
     <script src="library/scripts/external/jquery-1.10.2.min.js"></script>
@@ -59,7 +60,7 @@
 
     <script>
         $(document).ready(function () {
-            console.log("Ready!");            
+            console.log("Ready!");
             System.InitializeLoginPage();
         });
     </script>

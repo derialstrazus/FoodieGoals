@@ -3,7 +3,6 @@
 
     export function Initialize(): void {
         WebApi.InitializeWebApi();
-        Authentication.Initialize();
     }
 
     export function InitializeLoginPage(): void {
@@ -18,39 +17,15 @@
 
         const tokenKey = 'accessToken';
 
-        export function Initialize() {
-
-            var container = $("#loginPanel").empty()
-            if (!IsAuthenticated()) {
-                var loginButton = $(`<button>Log In</button>`).appendTo(container);                
-                var signupButton = $(`<button>Sign Up</button>`).appendTo(container);
-
-                loginButton.click(function (e) {
-                    e.preventDefault();
-                    window.location.href = window.location.origin + "/login";
-                });
-
-                signupButton.click(function (e) {
-                    e.preventDefault();
-                    window.location.href = window.location.origin + "/login";
-                });
-
-            } else {
-                var logoutButton = $(`<button>Log Out</button>`).appendTo(container);
-                logoutButton.click(function (e) {
-                    e.preventDefault();
-                    ClearToken();
-                    location.reload();
-                });
-            }
-
-        }
-
         export function IsAuthenticated(): boolean {
             if (GetToken())
                 return true;
             else
                 return false;
+        }
+
+        export function SetToken(token: string) {
+            sessionStorage.setItem(tokenKey, token);
         }
 
         export function GetToken(): string {
@@ -63,11 +38,7 @@
 
         export function BindLoginForms() {
             BindSignIn();
-            BindSignUp();
-
-            $("#btnTest").click(function (e) {
-                WebApi.Get("person/1/personrestaurant/goals");
-            });
+            BindSignUp();            
         }
 
         function BindSignIn() {
@@ -81,8 +52,7 @@
                     username: $("#loginEmail").val(),
                     password: $("#loginPassword").val()
                 };
-
-                //WebApi.Post("Token", loginData, LoginSuccess, LoginFailure);
+                
                 WebApi.PostLogin("Token", loginData, LoginSuccess, LoginFailure);
 
                 //$.ajax({
@@ -101,7 +71,7 @@
                 console.log("Login Success!");
                 sessionStorage.setItem(tokenKey, data.access_token);
                 //Redirect to page
-                window.location.href = window.location.origin;
+                window.location.href = window.location.origin + "/bootstrap.html";
             }
 
             function LoginFailure(status, error) {

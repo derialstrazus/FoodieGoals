@@ -11,6 +11,7 @@ var App;
     function Initialize() {
         console.log("App initializing...");
         ClearEverything();
+        InitializeLogin();
         InitializePerson();
         InitializeSearch();
         InitializeAddRestaurant();
@@ -25,6 +26,30 @@ var App;
         $("#nameContainer").empty();
         $("#selectPersonList").empty();
         ClearAddRestaurantForm();
+    }
+    function InitializeLogin() {
+        var container = $("#loginPanel").empty();
+        if (!System.Authentication.IsAuthenticated()) {
+            var loginButton = $("<button class=\"btn\">Login</button>").appendTo(container);
+            container.append("&nbsp;");
+            var signupButton = $("<button class=\"btn\">Signup</button>").appendTo(container);
+            loginButton.click(function (e) {
+                e.preventDefault();
+                window.location.href = window.location.origin + "/login";
+            });
+            signupButton.click(function (e) {
+                e.preventDefault();
+                window.location.href = window.location.origin + "/login";
+            });
+        }
+        else {
+            var logoutButton = $("<button>Log Out</button>").appendTo(container);
+            logoutButton.click(function (e) {
+                e.preventDefault();
+                System.Authentication.ClearToken();
+                location.reload();
+            });
+        }
     }
     function InitializePerson() {
         //System.WebApi.Get(`person/users`, null, GetTemporaryUsersSuccess);      //temporary soln to avoid working on authentication

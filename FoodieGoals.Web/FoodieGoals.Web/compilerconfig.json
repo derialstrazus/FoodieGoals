@@ -6,5 +6,13 @@
   {
     "outputFile": "library/styles/variables.css",
     "inputFile": "library/styles/variables.less"
+  },
+  {
+    "outputFile": "library/styles/pagebootstrap.css",
+    "inputFile": "library/styles/pagebootstrap.less"
+  },
+  {
+    "outputFile": "library/styles/pagelogin.css",
+    "inputFile": "library/styles/pagelogin.less"
   }
 ]

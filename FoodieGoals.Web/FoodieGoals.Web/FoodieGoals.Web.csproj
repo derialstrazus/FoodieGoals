@@ -130,6 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap.html" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="library\fonts\glyphicons-halflings-regular.svg" />
@@ -155,15 +156,30 @@
     <Content Include="library\scripts\app.js">
       <DependentUpon>app.ts</DependentUpon>
     </Content>
+    <Content Include="library\scripts\external\bootstrap.bundle.js" />
+    <Content Include="library\scripts\external\bootstrap.bundle.min.js" />
+    <Content Include="library\scripts\external\bootstrap.js" />
+    <Content Include="library\scripts\external\bootstrap.min.js" />
     <Content Include="library\scripts\helpers.js">
       <DependentUpon>helpers.ts</DependentUpon>
     </Content>
     <Content Include="library\scripts\system.js">
       <DependentUpon>system.ts</DependentUpon>
     </Content>
+    <Content Include="library\styles\bootstrap.css" />
+    <Content Include="library\styles\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="library\styles\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="library\styles\bootstrap.min.css.map">
+      <DependentUpon>bootstrap.min.css</DependentUpon>
+    </Content>
     <Content Include="library\styles\icons.css" />
-    <Content Include="library\styles\icons.min.css" />
-    <Content Include="library\styles\login.css" />
+    <Content Include="library\styles\icons.min.css">
+      <DependentUpon>icons.css</DependentUpon>
+    </Content>
     <Content Include="library\styles\page.css">
       <DependentUpon>page.less</DependentUpon>
     </Content>
@@ -181,6 +197,18 @@
     <Content Include="library\scripts\helpers.js.map">
       <DependentUpon>helpers.ts</DependentUpon>
     </Content>
+    <Content Include="library\styles\pagebootstrap.css">
+      <DependentUpon>pagebootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="library\styles\pagebootstrap.min.css">
+      <DependentUpon>pagebootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="library\styles\pagelogin.css">
+      <DependentUpon>pagelogin.less</DependentUpon>
+    </Content>
+    <Content Include="library\styles\pagelogin.min.css">
+      <DependentUpon>pagelogin.css</DependentUpon>
+    </Content>
     <Content Include="library\styles\variables.css">
       <DependentUpon>variables.less</DependentUpon>
     </Content>
@@ -188,6 +216,12 @@
     <Content Include="library\fonts\icomoon.eot" />
     <Content Include="library\fonts\icomoon.ttf" />
     <Content Include="library\fonts\icomoon.woff" />
+    <Content Include="library\scripts\external\bootstrap.bundle.js.map" />
+    <Content Include="library\scripts\external\bootstrap.bundle.min.js.map" />
+    <Content Include="library\scripts\external\bootstrap.js.map" />
+    <Content Include="library\scripts\external\bootstrap.min.js.map" />
+    <Content Include="library\styles\pagebootstrap.less" />
+    <Content Include="library\styles\pagelogin.less" />
     <None Include="Properties\PublishProfiles\foodiegoals - Web Deploy.pubxml" />
     <None Include="library\scripts\external\jquery-1.10.2.intellisense.js" />
     <Content Include="library\scripts\external\jquery-1.10.2.js" />
