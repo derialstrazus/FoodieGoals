@@ -62,7 +62,7 @@ var System;
                 console.log("Login Success!");
                 sessionStorage.setItem(tokenKey, data.access_token);
                 //Redirect to page
-                window.location.href = window.location.origin + "/bootstrap.html";
+                window.location.href = window.location.origin;
             }
             function LoginFailure(status, error) {
                 alert("Failed to login");
@@ -160,6 +160,7 @@ var System;
             }, function (xhr, status, error) {
                 if (xhr.status == 401) {
                     CleanUpAndRedirectToLogin();
+                    return;
                 }
                 var compiledError = xhr.status + " Error - " + xhr.statusText;
                 var response = xhr.responseJSON;
@@ -189,7 +190,7 @@ var System;
         }
         function CleanUpAndRedirectToLogin() {
             Authentication.ClearToken();
-            alert("401 error.");
+            window.location.href = "login";
         }
         function GenericAPISuccess(data) {
             console.log(JSON.stringify(data, null, 2));

@@ -233,6 +233,7 @@
       <DependentUpon>variables.css</DependentUpon>
     </Content>
     <Content Include="Login.aspx" />
+    <Content Include="prebootstrap.html" />
     <Content Include="privacypolicy.html" />
     <Content Include="testlogin.html" />
     <Content Include="Web.config">

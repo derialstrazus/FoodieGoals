@@ -53,13 +53,12 @@ var App;
     }
     function InitializePerson() {
         //System.WebApi.Get(`person/users`, null, GetTemporaryUsersSuccess);      //temporary soln to avoid working on authentication
-        var cookiePersonID = parseInt(Helpers.Cookie.Get("PersonID"));
-        if (Helpers.IsNumber(cookiePersonID)) {
-            //personID = cookiePersonID;
-            personID = 1;
-            System.WebApi.Get("person/" + personID, null, GetPersonSuccess);
-            System.WebApi.Get("person/" + personID + "/personrestaurant/goals", null, GetPersonRestaurantsSuccess);
-        }
+        //var cookiePersonID = parseInt(Helpers.Cookie.Get("PersonID"));
+        //if (Helpers.IsNumber(cookiePersonID)) {
+        //    //personID = cookiePersonID;
+        //    personID = 1;
+        System.WebApi.Get("person", null, GetPersonSuccess);
+        //}
     }
     //function GetTemporaryUsersSuccess(data) {
     //    if (Helpers.IsNullOrEmpty(data)) {
@@ -85,7 +84,13 @@ var App;
         ClearEverything();
         personID = personData.ID;
         Helpers.Cookie.Set("PersonID", personID.toString());
-        $("#nameContainer").empty().append("<p>My name is " + personData.FirstName + " " + personData.LastName + "</p>");
+        //$("#nameContainer").empty().append(`<p>My name is ${personData.FirstName} ${personData.LastName}</p>`);
+        var nameString = "";
+        if (Helpers.IsNotNullNOREmpty(personData.FirstName))
+            nameString = personData.FirstName + " " + personData.LastName;
+        else
+            nameString = personData.Email;
+        $("#loginPanel").prepend("<span class=\"d-none d-md-block\">" + nameString + "</span>");
         var personListContainer = $("#selectPersonList").empty();
         var personListOptionGoals = $("<option value=\"goals\">Goals</option>").appendTo(personListContainer);
         var personListOptionVisited = $("<option value=\"visited\">Visited</option>").appendTo(personListContainer);
@@ -100,6 +105,7 @@ var App;
             else if (Helpers.IsNumber(listID))
                 System.WebApi.Get("personlist/" + listID, null, GetPersonRestaurantsSuccess, null, true);
         });
+        System.WebApi.Get("person/" + personID + "/personrestaurant/goals", null, GetPersonRestaurantsSuccess);
     }
     function RenderPersonList(personLists) {
         if (Helpers.IsNullOrEmpty(personLists) || personLists.length <= 0) {
